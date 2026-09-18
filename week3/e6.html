@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Grid</title>
+  <style>
+    :root {
+      --bg: #f0fdfa;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --primary: #0f766e;
+      --border: #99d8d3;
+      --radius: 12px;
+      --space: 20px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f172a;
+        --card-bg: #1e293b;
+        --text: #e2e8f0;
+        --primary: #5eead4;
+        --border: #334155;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: var(--space);
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space);
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .card {
+      padding: var(--space);
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      transition: transform 0.25s ease;
+    }
+
+    .card::before {
+      content: "✨";
+      display: block;
+      margin-bottom: 10px;
+      font-size: 28px;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+    }
+
+    @media (min-width: 640px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="grid">
+    <article class="card">
+      <h2>Card One</h2>
+      <p>This card uses CSS Grid and responsive design.</p>
+    </article>
+
+    <article class="card">
+      <h2>Card Two</h2>
+      <p>Hover over a card to see the lift animation.</p>
+    </article>
+
+    <article class="card">
+      <h2>Card Three</h2>
+      <p>Switch your device theme to view dark mode.</p>
+    </article>
+  </main>
+</body>
+</html>

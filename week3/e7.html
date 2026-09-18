@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mahendra | Personal Page</title>
+  <style>
+    :root {
+      --primary: #0f766e;
+      --accent: #f59e0b;
+      --bg: #f0fdfa;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --muted: #475569;
+      --border: #99d8d3;
+      --radius: 12px;
+      --space: 20px;
+      --nav-height: 68px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --primary: #5eead4;
+        --accent: #fbbf24;
+        --bg: #0f172a;
+        --surface: #1e293b;
+        --text: #e2e8f0;
+        --muted: #cbd5e1;
+        --border: #334155;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      width: 100%;
+      height: var(--nav-height);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 var(--space);
+      background: #1e293b;
+    }
+
+    .logo {
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: var(--space);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: calc(var(--nav-height) + var(--space)) var(--space) var(--space);
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 650px;
+      animation: fade-in 1s ease-out both;
+    }
+
+    .hero h1 {
+      margin: 0;
+      color: var(--primary);
+      font-size: clamp(2.5rem, 8vw, 5rem);
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .skills-section {
+      min-height: 100vh;
+      padding: var(--space);
+    }
+
+    .section-heading {
+      position: sticky;
+      top: var(--nav-height);
+      z-index: 5;
+      margin: 0 0 var(--space);
+      padding: 16px 0;
+      background: var(--bg);
+      color: var(--primary);
+      font-size: 2rem;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space);
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .skill-card {
+      padding: var(--space);
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .skill-card::before {
+      content: "✨";
+      display: block;
+      margin-bottom: 12px;
+      font-size: 30px;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 24px rgba(15, 118, 110, 0.3);
+    }
+
+    .skill-card h3 {
+      margin-top: 0;
+      color: var(--primary);
+    }
+
+    .skill-card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    footer {
+      padding: var(--space);
+      text-align: center;
+      background: #1e293b;
+      color: white;
+    }
+
+    @media (min-width: 640px) {
+      .skills-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">Mahendra</div>
+
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#skills">Skills</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <h1>Mahendra</h1>
+        <p>
+          I am a Computer Engineering student interested in programming,
+          web development, and building useful software.
+        </p>
+      </div>
+    </section>
+
+    <section class="skills-section" id="skills">
+      <h2 class="section-heading">My Skills</h2>
+
+      <div class="skills-grid">
+        <article class="skill-card">
+          <h3>Python</h3>
+          <p>I use Python for programming, automation, and problem-solving.</p>
+        </article>
+
+        <article class="skill-card">
+          <h3>HTML</h3>
+          <p>I create clear and well-structured web pages with HTML.</p>
+        </article>
+
+        <article class="skill-card">
+          <h3>CSS</h3>
+          <p>I build responsive layouts, animations, and modern page designs.</p>
+        </article>
+
+        <article class="skill-card">
+          <h3>Java</h3>
+          <p>I use Java to develop object-oriented programs and applications.</p>
+        </article>
+
+        <article class="skill-card">
+          <h3>C#</h3>
+          <p>I use C# to create structured applications using object-oriented programming.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Mahendra
+  </footer>
+</body>
+</html>
