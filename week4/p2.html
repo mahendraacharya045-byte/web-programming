@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Profile Card</title>
+  <style>
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      font-family: system-ui, sans-serif;
+      background: #f2f4f8;
+      color: #202735;
+    }
+
+    .card {
+      width: min(90vw, 22rem);
+      padding: 2rem;
+      text-align: center;
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 12px 32px #2027351a;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .avatar {
+      width: 6rem;
+      height: 6rem;
+      margin: 0 auto 1rem;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #dbeafe;
+      font-size: 2rem;
+    }
+
+    .card button {
+      padding: 0.65rem 1rem;
+      border: 0;
+      border-radius: 0.5rem;
+      background: #356ae6;
+      color: white;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .card.dark {
+      background: #202735;
+      color: #f5f7fb;
+    }
+
+    .card.dark .avatar {
+      background: #3b4659;
+    }
+  </style>
+</head>
+<body>
+  <article class="card">
+    <div class="avatar" aria-hidden="true">👤</div>
+    <h1>Alex Morgan</h1>
+    <p>Product designer who loves making simple, useful things.</p>
+    <button id="theme-toggle" type="button">Switch to dark mode</button>
+  </article>
+
+  <script>
+    const card = document.querySelector('.card');
+    const toggleButton = document.querySelector('#theme-toggle');
+
+    toggleButton.addEventListener('click', () => {
+      card.classList.toggle('dark');
+
+      if (card.classList.contains('dark')) {
+        toggleButton.textContent = 'Switch to light mode';
+      } else {
+        toggleButton.textContent = 'Switch to dark mode';
+      }
+    });
+  </script>
+</body>
+</html>

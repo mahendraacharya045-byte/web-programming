@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Search</title>
+  <style>
+    body {
+      max-width: 36rem;
+      margin: 3rem auto;
+      padding: 0 1rem;
+      color: #202735;
+      font-family: system-ui, sans-serif;
+    }
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      border: 1px solid #cbd2dc;
+      border-radius: 0.5rem;
+      font: inherit;
+    }
+
+    ul {
+      display: grid;
+      gap: 0.5rem;
+      padding: 0;
+      list-style: none;
+    }
+
+    .student {
+      padding: 0.75rem;
+      background: #f3f5f9;
+      border-radius: 0.5rem;
+    }
+
+    mark {
+      background: #ffeb99;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Students</h1>
+    <label for="search">Search students</label>
+    <input id="search" type="search" placeholder="Type a name…">
+
+    <ul id="student-list">
+      <li class="student">Ava Johnson</li>
+      <li class="student">Noah Williams</li>
+      <li class="student">Mia Chen</li>
+      <li class="student">Liam Patel</li>
+      <li class="student">Sofia Garcia</li>
+      <li class="student">Ethan Kim</li>
+    </ul>
+  </main>
+
+  <script>
+    const searchBox = document.querySelector('#search');
+
+    searchBox.addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase();
+      const students = document.querySelectorAll('.student');
+
+      students.forEach((student) => {
+        const name = student.textContent;
+        const lowerName = name.toLowerCase();
+
+        if (lowerName.includes(term)) {
+          student.style.display = '';
+          student.innerHTML = term
+            ? name.replace(
+                new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi'),
+                '<mark>$1</mark>'
+              )
+            : name;
+        } else {
+          student.style.display = 'none';
+          student.textContent = name;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
