@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seoul Weather</title>
+  <style>
+    body {
+      font: 16px/1.5 system-ui, sans-serif;
+      max-width: 600px;
+      margin: 10vh auto;
+      padding: 24px;
+      color: #172033;
+      background: #f4f6fb;
+    }
+
+    main {
+      padding: 28px;
+      background: white;
+      border: 1px solid #dce2ef;
+      border-radius: 12px;
+    }
+
+    button {
+      padding: 10px 16px;
+      border: 0;
+      border-radius: 8px;
+      color: white;
+      background: #3157c8;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+
+    #status {
+      min-height: 1.5em;
+      color: #5b6475;
+    }
+
+    .reading {
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Seoul Weather</h1>
+    <p id="status" aria-live="polite">Loading weather…</p>
+    <p class="reading">Temperature: <strong id="temperature">—</strong></p>
+    <p class="reading">Wind speed: <strong id="windSpeed">—</strong></p>
+    <p id="updated"></p>
+    <button id="refreshButton" type="button">Refresh weather</button>
+  </main>
+
+  <script>
+    const statusElement = document.querySelector("#status");
+    const temperatureElement = document.querySelector("#temperature");
+    const windSpeedElement = document.querySelector("#windSpeed");
+    const updatedElement = document.querySelector("#updated");
+    const refreshButton = document.querySelector("#refreshButton");
+
+    async function getWeather() {
+      refreshButton.disabled = true;
+      statusElement.textContent = "Loading weather…";
+
+      const params = new URLSearchParams({
+        latitude: "37.5",
+        longitude: "127",
+        current: "temperature_2m,wind_speed_10m",
+        timezone: "Asia/Seoul"
+      });
+
+      const url = `https://api.open-meteo.com/v1/forecast?${params}`;
+
+      try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+        const weather = data.current;
+
+        if (!weather) {
+          throw new Error("Weather data was missing from the response.");
+        }
+
+        const units = data.current_units ?? {};
+
+        temperatureElement.textContent =
+          `${weather.temperature_2m} ${units.temperature_2m ?? "°C"}`;
+        windSpeedElement.textContent =
+          `${weather.wind_speed_10m} ${units.wind_speed_10m ?? "km/h"}`;
+        updatedElement.textContent =
+          weather.time ? `Updated: ${weather.time.replace("T", " ")}` : "";
+        statusElement.textContent = "";
+      } catch (error) {
+        statusElement.textContent = `Failed to load weather: ${error.message}`;
+      } finally {
+        refreshButton.disabled = false;
+      }
+    }
+
+    refreshButton.addEventListener("click", getWeather);
+    getWeather();
+  </script>
+</body>
+</html>
