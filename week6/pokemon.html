@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pokémon Lookup</title>
+  <style>
+    body {
+      font: 16px/1.5 system-ui, sans-serif;
+      max-width: 600px;
+      margin: 8vh auto;
+      padding: 24px;
+      color: #172033;
+      background: #f4f6fb;
+    }
+
+    main {
+      padding: 28px;
+      background: white;
+      border: 1px solid #dce2ef;
+      border-radius: 12px;
+    }
+
+    form {
+      display: flex;
+      gap: 8px;
+    }
+
+    input, button {
+      padding: 10px 12px;
+      border-radius: 8px;
+      font: inherit;
+    }
+
+    input {
+      flex: 1;
+      min-width: 0;
+      border: 1px solid #b8c2d6;
+    }
+
+    button {
+      border: 0;
+      color: white;
+      background: #3157c8;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+
+    #status {
+      min-height: 1.5em;
+      color: #5b6475;
+    }
+
+    #sprite {
+      width: 120px;
+      height: 120px;
+      image-rendering: pixelated;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Pokémon Lookup</h1>
+
+    <form id="pokemonForm">
+      <input
+        id="pokemonName"
+        type="text"
+        value="pikachu"
+        aria-label="Pokémon name"
+        required
+      >
+      <button id="searchButton" type="submit">Search</button>
+    </form>
+
+    <p id="status" aria-live="polite">Loading Pokémon…</p>
+
+    <section id="result" hidden>
+      <h2 id="name"></h2>
+      <img id="sprite" alt="">
+      <p><strong>Types:</strong> <span id="types"></span></p>
+      <h3>Base stats</h3>
+      <ul id="stats"></ul>
+    </section>
+  </main>
+
+  <script>
+    const form = document.querySelector("#pokemonForm");
+    const nameInput = document.querySelector("#pokemonName");
+    const searchButton = document.querySelector("#searchButton");
+    const statusElement = document.querySelector("#status");
+    const resultElement = document.querySelector("#result");
+    const nameElement = document.querySelector("#name");
+    const spriteElement = document.querySelector("#sprite");
+    const typesElement = document.querySelector("#types");
+    const statsElement = document.querySelector("#stats");
+
+    async function getPokemon(name = "pikachu") {
+      searchButton.disabled = true;
+      statusElement.textContent = "Loading Pokémon…";
+      resultElement.hidden = true;
+      statsElement.replaceChildren();
+
+      try {
+        const pokemonName = name.trim().toLowerCase();
+
+        if (!pokemonName) {
+          throw new Error("Enter a Pokémon name.");
+        }
+
+        const url =
+          `https://pokeapi.co/api/v2/pokemon/${encodeURIComponent(pokemonName)}`;
+        const response = await fetch(url);
+
+        if (!response.ok) {
+          throw new Error(
+            response.status === 404
+              ? "Pokémon not found. Check the spelling and try again."
+              : `HTTP ${response.status}`
+          );
+        }
+
+        const pokemon = await response.json();
+
+        nameElement.textContent =
+          pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+        typesElement.textContent = pokemon.types
+          .map(entry => entry.type.name)
+          .join(", ");
+
+        if (pokemon.sprites.front_default) {
+          spriteElement.src = pokemon.sprites.front_default;
+          spriteElement.alt = `${pokemon.name} sprite`;
+          spriteElement.hidden = false;
+        } else {
+          spriteElement.removeAttribute("src");
+          spriteElement.alt = "Sprite unavailable";
+          spriteElement.hidden = true;
+        }
+
+        pokemon.stats.forEach(entry => {
+          const item = document.createElement("li");
+          item.textContent =
+            `${entry.stat.name}: ${entry.base_stat}`;
+          statsElement.appendChild(item);
+        });
+
+        statusElement.textContent = "";
+        resultElement.hidden = false;
+      } catch (error) {
+        statusElement.textContent = `Failed: ${error.message}`;
+      } finally {
+        searchButton.disabled = false;
+      }
+    }
+
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+      getPokemon(nameInput.value);
+    });
+
+    getPokemon();
+  </script>
+</body>
+</html>
