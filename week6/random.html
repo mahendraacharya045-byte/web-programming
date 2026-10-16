@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Random User</title>
+  <style>
+    body {
+      font: 16px/1.5 system-ui, sans-serif;
+      max-width: 500px;
+      margin: 10vh auto;
+      padding: 24px;
+      color: #172033;
+      background: #f4f6fb;
+    }
+
+    main {
+      padding: 28px;
+      text-align: center;
+      background: white;
+      border: 1px solid #dce2ef;
+      border-radius: 12px;
+    }
+
+    img {
+      width: 128px;
+      height: 128px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    button {
+      padding: 10px 16px;
+      border: 0;
+      border-radius: 8px;
+      color: white;
+      background: #3157c8;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+
+    #status {
+      min-height: 1.5em;
+      color: #5b6475;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Random User</h1>
+    <p id="status" aria-live="polite">Loading profile…</p>
+    <img id="photo" alt="Random user profile photo" hidden>
+    <h2 id="name"></h2>
+    <p id="email"></p>
+    <button id="loadButton" type="button">Get another user</button>
+  </main>
+
+  <script>
+    const statusElement = document.querySelector("#status");
+    const photoElement = document.querySelector("#photo");
+    const nameElement = document.querySelector("#name");
+    const emailElement = document.querySelector("#email");
+    const loadButton = document.querySelector("#loadButton");
+
+    async function getRandomUser() {
+      loadButton.disabled = true;
+      statusElement.textContent = "Loading profile…";
+
+      try {
+        const response = await fetch("https://randomuser.me/api/");
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+        const user = data.results?.[0];
+
+        if (!user) {
+          throw new Error("No user was returned.");
+        }
+
+        nameElement.textContent = `${user.name.first} ${user.name.last}`;
+        emailElement.textContent = user.email;
+        photoElement.src = user.picture.large;
+        photoElement.hidden = false;
+        statusElement.textContent = "";
+      } catch (error) {
+        statusElement.textContent = `Failed to load user: ${error.message}`;
+        photoElement.hidden = true;
+        nameElement.textContent = "";
+        emailElement.textContent = "";
+      } finally {
+        loadButton.disabled = false;
+      }
+    }
+
+    loadButton.addEventListener("click", getRandomUser);
+    getRandomUser();
+  </script>
+</body>
+</html>
