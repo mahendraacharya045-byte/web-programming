@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1020" />
+  <meta name="description" content="Web Programming coursework by Mahendra Acharya: weekly tasks and the final project." />
+  <title>Web Programming | Project Hub</title>
+  <style>
+    :root{--bg:#0b1020;--panel:#121a2d;--panel-hover:#19243b;--text:#edf2ff;--muted:#a9b6d4;--line:#2d3b59;--accent:#7c9cff;--accent-2:#5ce1c6;--radius:18px}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;min-height:100vh;color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+      background:radial-gradient(ellipse at 12% 0%,rgba(92,225,198,.12),transparent 32rem),radial-gradient(ellipse at 90% 12%,rgba(124,156,255,.16),transparent 30rem),var(--bg)}
+    a{color:inherit}
+    .skip-link{position:absolute;left:-9999px;top:0}
+    .skip-link:focus{left:.5rem;top:.5rem;z-index:99;background:var(--accent-2);color:#07131c;padding:.6rem 1rem;border-radius:8px;font-weight:700}
+    .shell{width:min(1100px,calc(100% - 40px));margin:0 auto}
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 0;border-bottom:1px solid var(--line)}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.02em}
+    .brand-mark{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;color:#07131c;font-size:19px;font-weight:900;background:linear-gradient(135deg,var(--accent-2),var(--accent))}
+    .header-tag{color:var(--muted);font-size:13px;border:1px solid var(--line);border-radius:999px;padding:8px 12px}
+    main{padding:64px 0 76px}
+    .hero{display:grid;grid-template-columns:1fr 280px;gap:30px;align-items:end;margin-bottom:28px}
+    .eyebrow{color:var(--accent-2);text-transform:uppercase;letter-spacing:.16em;font-size:12px;font-weight:800;margin:0 0 15px}
+    h1{margin:0;max-width:720px;font-size:clamp(42px,7vw,76px);line-height:.98;letter-spacing:-.055em}
+    h1 span{color:var(--accent)}
+    .hero-note{color:var(--muted);font-size:15px;line-height:1.7;border-left:2px solid var(--accent-2);padding:5px 0 5px 18px}
+    .profile{display:flex;align-items:center;gap:15px;padding:20px 22px;margin:34px 0;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(110deg,rgba(124,156,255,.12),rgba(92,225,198,.06))}
+    .avatar{display:grid;place-items:center;flex:0 0 48px;height:48px;border-radius:15px;background:var(--panel-hover);color:var(--accent-2);font-weight:900}
+    .profile-label{margin:0 0 4px;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.13em;font-weight:800}
+    .profile-name{margin:0 0 4px;font-size:19px;font-weight:750}
+    .profile-study{margin:0;color:var(--muted);font-size:14px}
+    .final{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;padding:24px;margin-bottom:34px;border:2px solid var(--accent-2);border-radius:var(--radius);background:linear-gradient(110deg,rgba(92,225,198,.14),rgba(124,156,255,.08))}
+    .final h2{margin:0 0 6px;font-size:22px}
+    .final p{margin:0;color:var(--muted);font-size:15px;line-height:1.6}
+    .final-btn{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;border-radius:12px;background:var(--accent-2);color:#07131c;font-weight:800;text-decoration:none}
+    .final-btn:hover{background:#8ff0da}
+    .controls{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:16px}
+    .search-wrap{width:min(100%,430px)}
+    .search-wrap label{display:block;color:var(--muted);font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:9px}
+    .search-wrap input{width:100%;height:48px;padding:0 16px;border:1px solid #4a5b82;border-radius:12px;background:rgba(18,26,45,.9);color:var(--text);font:inherit;outline:none}
+    .search-wrap input::placeholder{color:#8f9cbb}
+    .search-wrap input:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(124,156,255,.2)}
+    .result-count{color:var(--muted);font-size:13px;padding-bottom:15px}
+    .week-list{display:grid;gap:12px}
+    .week{overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);background:rgba(18,26,45,.82)}
+    .week:hover{border-color:#3b4b70}
+    .week summary{display:grid;grid-template-columns:54px minmax(0,1fr) auto 22px;align-items:center;gap:16px;min-height:82px;padding:0 22px;cursor:pointer;list-style:none}
+    .week summary::-webkit-details-marker{display:none}
+    .week-number{display:grid;place-items:center;width:43px;height:43px;border-radius:13px;color:var(--accent-2);background:rgba(92,225,198,.09);font-size:13px;font-weight:900}
+    .week-title{font-size:19px;font-weight:750;letter-spacing:-.02em}
+    .week-count{color:var(--muted);font-size:13px}
+    .chevron{width:10px;height:10px;border-right:2px solid var(--accent);border-bottom:2px solid var(--accent);transform:rotate(45deg) translateY(-3px);transition:transform .2s}
+    details[open] .chevron{transform:rotate(225deg) translate(-2px,-1px)}
+    details[open] summary{border-bottom:1px solid var(--line);background:rgba(124,156,255,.04)}
+    .task-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding:18px 22px 22px}
+    .task-link{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:48px;padding:0 14px;border:1px solid var(--line);border-radius:11px;background:var(--panel);color:var(--text);font-size:14px;text-decoration:none;transition:transform .18s,border-color .18s,background .18s}
+    .task-link::after{content:"\2197";color:var(--accent-2);font-size:16px}
+    .task-link:hover{transform:translateY(-2px);border-color:var(--accent);background:var(--panel-hover)}
+    :focus-visible{outline:3px solid var(--accent-2);outline-offset:3px;border-radius:6px}
+    .empty-state{display:none;padding:34px 15px;color:var(--muted);text-align:center;border:1px dashed var(--line);border-radius:var(--radius)}
+    footer{display:flex;justify-content:space-between;gap:15px;padding:20px 0 28px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+    [hidden]{display:none!important}
+    @media (max-width:720px){
+      .shell{width:min(100% - 28px,560px)}
+      main{padding:45px 0 55px}
+      .hero{grid-template-columns:1fr;gap:20px}
+      .final{grid-template-columns:1fr}
+      .task-grid{grid-template-columns:repeat(2,minmax(0,1fr));padding:14px}
+      .week summary{grid-template-columns:44px minmax(0,1fr) auto 14px;gap:10px;padding:0 14px}
+      .week-number{width:38px;height:38px}
+      .week-title{font-size:17px}
+    }
+    @media (max-width:420px){
+      .controls{align-items:end}
+      .result-count{max-width:110px;text-align:right;line-height:1.5;padding-bottom:4px}
+      .task-grid{gap:7px}
+      .task-link{padding:0 10px;font-size:13px}
+      footer{flex-direction:column}
+    }
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div class="shell">
+    <header>
+      <div class="brand"><span class="brand-mark" aria-hidden="true">W</span><span>Web Programming</span></div>
+      <div class="header-tag">Coursework hub &middot; 2026</div>
+    </header>
+
+    <main id="main-content">
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Learn &middot; Build &middot; Improve</p>
+          <h1 id="page-title">My coding <span>projects.</span></h1>
+        </div>
+        <div class="hero-note">A home for weekly coursework and small web projects. Choose a week, then open a task to view your work.</div>
+      </section>
+
+      <section class="profile" aria-label="Student information">
+        <div class="avatar" aria-hidden="true">MA</div>
+        <div>
+          <p class="profile-label">Student portfolio</p>
+          <h2 class="profile-name">Mahendra Acharya</h2>
+          <p class="profile-study">Computer Engineering &middot; Gachon University &middot; 3rd Semester</p>
+        </div>
+      </section>
+
+      <section class="final" aria-labelledby="final-title">
+        <div>
+          <h2 id="final-title">Final project: Bapsang</h2>
+          <p>A four-page Korean recipe website with search, filters, servings scaler, step timers, favorites and a validated contact form.</p>
+        </div>
+        <a class="final-btn" href="final-project/index.html">Open final project</a>
+      </section>
+
+      <div class="controls">
+        <div class="search-wrap">
+          <label for="project-search">Search coursework</label>
+          <input id="project-search" type="search" placeholder="Try &lsquo;Week 2&rsquo; or &lsquo;Form&rsquo;&hellip;" autocomplete="off" />
+        </div>
+        <div class="result-count" id="result-count" role="status" aria-live="polite"></div>
+      </div>
+
+      <section class="week-list" id="week-list" aria-label="Weekly coursework">
+        <details class="week" data-week>
+          <summary><span class="week-number">01</span><span class="week-title">Week 1</span><span class="week-count">8 tasks</span><span class="chevron" aria-hidden="true"></span></summary>
+          <div class="task-grid"><a class="task-link" href="week%201/task1.html" aria-label="Week 1, Task 1">Task 1</a><a class="task-link" href="week%201/task%202.html" aria-label="Week 1, Task 2">Task 2</a><a class="task-link" href="week%201/task3.html" aria-label="Week 1, Task 3">Task 3</a><a class="task-link" href="week%201/task4.html" aria-label="Week 1, Task 4">Task 4</a><a class="task-link" href="week%201/task5.html" aria-label="Week 1, Task 5">Task 5</a><a class="task-link" href="week%201/task6.html" aria-label="Week 1, Task 6">Task 6</a><a class="task-link" href="week%201/task7.html" aria-label="Week 1, Task 7">Task 7</a><a class="task-link" href="week%201/task8.html" aria-label="Week 1, Task 8">Task 8</a></div>
+        </details>
+        <details class="week" data-week>
+          <summary><span class="week-number">02</span><span class="week-title">Week 2</span><span class="week-count">8 tasks</span><span class="chevron" aria-hidden="true"></span></summary>
+          <div class="task-grid"><a class="task-link" href="week%202/task1.html" aria-label="Week 2, Task 1">Task 1</a><a class="task-link" href="week%202/task2.html" aria-label="Week 2, Task 2">Task 2</a><a class="task-link" href="week%202/task3.html" aria-label="Week 2, Task 3">Task 3</a><a class="task-link" href="week%202/task4.html" aria-label="Week 2, Task 4">Task 4</a><a class="task-link" href="week%202/task5.html" aria-label="Week 2, Task 5">Task 5</a><a class="task-link" href="week%202/task6.html" aria-label="Week 2, Task 6">Task 6</a><a class="task-link" href="week%202/task7.html" aria-label="Week 2, Task 7">Task 7</a><a class="task-link" href="week%202/task8.html" aria-label="Week 2, Task 8">Task 8</a></div>
+        </details>
+        <details class="week" data-week>
+          <summary><span class="week-number">03</span><span class="week-title">Week 3</span><span class="week-count">1 task</span><span class="chevron" aria-hidden="true"></span></summary>
+          <div class="task-grid"><a class="task-link" href="week3/e1.html" aria-label="Week 3, Exercise 1">Exercise 1</a></div>
+        </details>
+        <details class="week" data-week>
+          <summary><span class="week-number">04</span><span class="week-title">Week 4</span><span class="week-count">4 tasks</span><span class="chevron" aria-hidden="true"></span></summary>
+          <div class="task-grid"><a class="task-link" href="week4/p1.html" aria-label="Week 4, Task 1">Task 1</a><a class="task-link" href="week4/p2.html" aria-label="Week 4, Task 2">Task 2</a><a class="task-link" href="week4/p3.html" aria-label="Week 4, Task 3">Task 3</a><a class="task-link" href="week4/p4.html" aria-label="Week 4, Task 4">Task 4</a></div>
+        </details>
+        <details class="week" data-week>
+          <summary><span class="week-number">05</span><span class="week-title">Week 5</span><span class="week-count">2 tasks</span><span class="chevron" aria-hidden="true"></span></summary>
+          <div class="task-grid"><a class="task-link" href="week5/task1.html" aria-label="Week 5, Task 1">Task 1</a><a class="task-link" href="week5/task2.html" aria-label="Week 5, Task 2">Task 2</a></div>
+        </details>
+        <details class="week" data-week>
+          <summary><span class="week-number">06</span><span class="week-title">Week 6</span><span class="week-count">6 tasks</span><span class="chevron" aria-hidden="true"></span></summary>
+          <div class="task-grid"><a class="task-link" href="week6/country.html" aria-label="Week 6, Country">Country</a><a class="task-link" href="week6/jokes.html" aria-label="Week 6, Jokes">Jokes</a><a class="task-link" href="week6/meteo.html" aria-label="Week 6, Meteo">Meteo</a><a class="task-link" href="week6/placeholder.html" aria-label="Week 6, Placeholder">Placeholder</a><a class="task-link" href="week6/pokemon.html" aria-label="Week 6, Pokemon">Pokemon</a><a class="task-link" href="week6/random.html" aria-label="Week 6, Random">Random</a></div>
+        </details>
+        <details class="week" data-week>
+          <summary><span class="week-number">07</span><span class="week-title">Week 7</span><span class="week-count">7 tasks</span><span class="chevron" aria-hidden="true"></span></summary>
+          <div class="task-grid"><a class="task-link" href="week7/Search.html" aria-label="Week 7, Search">Search</a><a class="task-link" href="week7/Step1.html" aria-label="Week 7, Step 1">Step 1</a><a class="task-link" href="week7/Step2.html" aria-label="Week 7, Step 2">Step 2</a><a class="task-link" href="week7/Step3.html" aria-label="Week 7, Step 3">Step 3</a><a class="task-link" href="week7/Step4.html" aria-label="Week 7, Step 4">Step 4</a><a class="task-link" href="week7/Step5.html" aria-label="Week 7, Step 5">Step 5</a><a class="task-link" href="week7/Step6.html" aria-label="Week 7, Step 6">Step 6</a></div>
+        </details>
+        <details class="week" data-week>
+          <summary><span class="week-number">08</span><span class="week-title">Week 8</span><span class="week-count">5 tasks</span><span class="chevron" aria-hidden="true"></span></summary>
+          <div class="task-grid"><a class="task-link" href="Week8/Add_css.html" aria-label="Week 8, Add CSS">Add CSS</a><a class="task-link" href="Week8/Attri.html" aria-label="Week 8, Attributes">Attributes</a><a class="task-link" href="Week8/Form.html" aria-label="Week 8, Form">Form</a><a class="task-link" href="Week8/St_reg.html" aria-label="Week 8, Student Registration">Student Registration</a><a class="task-link" href="Week8/Upgraded_registration.html" aria-label="Week 8, Upgraded Registration">Upgraded Registration</a></div>
+        </details>
+      </section>
+      <p class="empty-state" id="empty-state">No matching projects. Try another search.</p>
+    </main>
+
+    <footer><span>Web Programming</span><span>Project index &middot; 42 links</span></footer>
+  </div>
+  <script>
+    const searchInput = document.querySelector('#project-search');
+    const weeks = [...document.querySelectorAll('[data-week]')];
+    const resultCount = document.querySelector('#result-count');
+    const emptyState = document.querySelector('#empty-state');
+
+    function filterProjects() {
+      const query = searchInput.value.trim().toLowerCase();
+      let visibleWeeks = 0, visibleProjects = 0;
+      for (const week of weeks) {
+        const title = week.querySelector('.week-title').textContent.toLowerCase();
+        const weekMatches = title.includes(query);
+        let count = 0;
+        for (const link of week.querySelectorAll('.task-link')) {
+          const matches = !query || weekMatches || link.textContent.toLowerCase().includes(query);
+          link.hidden = !matches;
+          if (matches) count++;
+        }
+        week.hidden = count === 0;
+        if (count > 0) { visibleWeeks++; visibleProjects += count; if (query) week.open = true; }
+        else if (query) { week.open = false; }
+      }
+      emptyState.style.display = visibleProjects ? 'none' : 'block';
+      resultCount.textContent = visibleProjects + ' tasks \u00B7 ' + visibleWeeks + ' weeks';
+    }
+    searchInput.addEventListener('input', filterProjects);
+    filterProjects();
+  </script>
+</body>
+</html>
