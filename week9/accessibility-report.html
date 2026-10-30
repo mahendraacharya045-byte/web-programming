@@ -27,6 +27,9 @@
     pre{margin:.4rem 0 1rem;padding:1rem;background:#17302a;color:#e8f0eb;border-radius:8px;overflow-x:auto;font:.9rem/1.5 Consolas,Menlo,monospace}
     .num{display:inline-grid;place-items:center;width:2rem;height:2rem;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;margin-right:.5rem}
     ul{margin:0 0 1rem;padding-left:1.3rem}
+    figure{margin:1.25rem 0 0}
+    figure img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:8px}
+    figcaption{color:var(--muted);font-size:.95rem;margin-top:.4rem}
   </style>
 </head>
 <body>
@@ -48,6 +51,17 @@
         </tbody>
       </table>
       <p style="margin-top:1rem">Tool: Chrome DevTools Lighthouse, Accessibility category only.</p>
+
+      <figure>
+        <img src="week9/before.png" width="1600" height="1000" loading="lazy"
+             alt="Lighthouse report for week5/task2.html showing an accessibility score of 91, with two failed audits: Form elements do not have associated labels, and Document does not have a main landmark.">
+        <figcaption>Before: score 91 with two failed audits.</figcaption>
+      </figure>
+      <figure>
+        <img src="week9/after.png" width="1600" height="1000" loading="lazy"
+             alt="Lighthouse report for the same page after the fixes, showing an accessibility score of 100 and no failed audits.">
+        <figcaption>After: score 100 with no failed audits.</figcaption>
+      </figure>
     </section>
 
     <section aria-labelledby="fix1">
