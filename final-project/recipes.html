@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Search and filter eight Korean home recipes with servings, timers and shopping lists.">
+<title>Recipes | Bapsang</title>
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.className="js"</script>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href="index.html">Bap<span>sang</span></a>
+    <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-menu">Menu</button>
+    <nav aria-label="Main navigation" id="nav-menu"><ul><li><a href="index.html">Home</a></li><li><a href="recipes.html" aria-current="page">Recipes</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></nav>
+  </div>
+</header>
+<main id="main-content">
+
+<div class="wrap">
+  <section class="page-head" aria-labelledby="page-title">
+    <h1 id="page-title">Recipes</h1>
+    <p>Search by name or ingredient, filter by type, and save your favorites.</p>
+  </section>
+  <section class="toolbar" aria-label="Find a recipe">
+    <div><label for="search">Search recipes or ingredients</label>
+      <input type="search" id="search" placeholder="Try kimchi, egg or noodles" autocomplete="off"></div>
+    <div role="group" aria-label="Filter by type" class="chips"><button type="button" class="chip" aria-pressed="true" data-filter="all">All</button><button type="button" class="chip" aria-pressed="false" data-filter="Soups &amp; stews">Soups &amp; stews</button><button type="button" class="chip" aria-pressed="false" data-filter="Rice">Rice</button><button type="button" class="chip" aria-pressed="false" data-filter="Snacks">Snacks</button><button type="button" class="chip" aria-pressed="false" data-filter="Sides">Sides</button><button type="button" class="chip" aria-pressed="false" data-filter="fav">Favorites</button></div>
+  </section>
+  <p class="status" id="results" role="status" aria-live="polite">Showing 8 of 8 recipes</p>
+  <p class="empty" id="empty" hidden>No recipes match. Clear the search or choose another filter.</p>
+  
+<article class="recipe" id="tteokbokki" aria-labelledby="t-tteokbokki" data-base="2" data-title="Tteokbokki" data-wiki="Tteokbokki" data-cat="Snacks" data-name="tteokbokki" data-text="cylinder rice cakes fish cake, cut in strips gochujang gochugaru (chili flakes) sugar soy sauce water or anchovy stock green onion">
+  <div class="left"><figure><svg viewBox="0 0 400 220" role="img" aria-label="Illustration of a bowl of red tteokbokki rice cakes"><ellipse cx="200" cy="178" rx="130" ry="18" fill="#7d2112"/><path d="M60 105h280a140 78 0 0 1-280 0z" fill="#7d2112"/><ellipse cx="200" cy="105" rx="140" ry="40" fill="#c8402a"/><circle cx="140" cy="100" r="9" fill="#f6e7d2"/><circle cx="210" cy="88" r="9" fill="#f6e7d2"/><circle cx="270" cy="112" r="9" fill="#f6e7d2"/><circle cx="180" cy="135" r="9" fill="#f6e7d2"/><circle cx="240" cy="140" r="9" fill="#f6e7d2"/></svg><figcaption class="meta"><span>Spicy rice cakes in a sweet chili sauce</span> <a class="credit" href="https://en.wikipedia.org/wiki/Tteokbokki" hidden>Photo: Wikipedia, Tteokbokki</a></figcaption></figure></div>
+  <div class="intro">
+    <h2 id="t-tteokbokki">Tteokbokki</h2>
+    <ul class="meta"><li><strong>Type:</strong> Snacks</li><li><strong>Time:</strong> 25 min</li><li><strong>Level:</strong> Easy</li></ul>
+    <div class="actions">
+      <button type="button" class="fav" aria-pressed="false" aria-label="Favorite Tteokbokki"><span aria-hidden="true" class="heart">&#9825;</span> Favorite</button>
+      <button type="button" class="copy" aria-label="Copy shopping list for Tteokbokki">Copy shopping list</button>
+      <button type="button" class="print" aria-label="Print Tteokbokki">Print</button>
+    </div>
+    <div class="servings" role="group" aria-label="Servings for Tteokbokki">
+      <button type="button" data-dir="-1" aria-label="Decrease servings for Tteokbokki">&minus;</button>
+      <span class="count" aria-live="polite">2 servings</span>
+      <button type="button" data-dir="1" aria-label="Increase servings for Tteokbokki">+</button>
+    </div>
+    <h3>Ingredients</h3>
+    <ul class="ingredients"><li><label><input type="checkbox"><span><span class="amt" data-amt="300" data-unit="g">300 g</span> cylinder rice cakes</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="2" data-unit="sheets">2 sheets</span> fish cake, cut in strips</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="2" data-unit="tbsp">2 tbsp</span> gochujang</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="1" data-unit="tbsp">1 tbsp</span> gochugaru (chili flakes)</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="1" data-unit="tbsp">1 tbsp</span> sugar</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="1" data-unit="tbsp">1 tbsp</span> soy sauce</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="400" data-unit="ml">400 ml</span> water or anchovy stock</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="2" data-unit="stalks">2 stalks</span> green onion</span></label></li></ul>
+  </div>
+  <div class="steps-col"><h3>Method</h3><ol class="steps"><li>Soak the rice cakes in cold water for 10 minutes if they are hard.</li><li>Bring the water or stock to a boil. Stir in gochujang, gochugaru, sugar and soy sauce.</li><li>Add the rice cakes and fish cake. Simmer, stirring often, until the sauce is thick. <button type="button" class="timer-btn" data-min="10" data-label="step 3 of Tteokbokki" aria-label="Start 10 minute timer for step 3 of Tteokbokki">Start 10 min timer</button> <span class="timer-out" role="timer"></span></li><li>Add the green onion, cook 1 more minute, and serve hot.</li></ol><p class="tip"><strong>Tip:</strong> Add a boiled egg at the end for a classic street-food style meal.</p></div>
+</article>
+<article class="recipe" id="kimchi-fried-rice" aria-labelledby="t-kimchi-fried-rice" data-base="2" data-title="Kimchi fried rice" data-wiki="Kimchi-bokkeumbap" data-cat="Rice" data-name="kimchi fried rice" data-text="cooked rice, day-old ripe kimchi, chopped kimchi juice gochujang sesame oil eggs, for frying">
+  <div class="left"><figure><svg viewBox="0 0 400 220" role="img" aria-label="Illustration of a pan of kimchi fried rice with a fried egg"><ellipse cx="200" cy="178" rx="130" ry="18" fill="#2b2f2d"/><path d="M60 105h280a140 78 0 0 1-280 0z" fill="#2b2f2d"/><ellipse cx="200" cy="105" rx="140" ry="40" fill="#e9b5a0"/><circle cx="140" cy="100" r="9" fill="#c8402a"/><circle cx="210" cy="88" r="9" fill="#c8402a"/><circle cx="270" cy="112" r="9" fill="#c8402a"/><circle cx="180" cy="135" r="9" fill="#c8402a"/><circle cx="240" cy="140" r="9" fill="#c8402a"/></svg><figcaption class="meta"><span>Fried rice with ripe kimchi and a runny egg</span> <a class="credit" href="https://en.wikipedia.org/wiki/Kimchi-bokkeumbap" hidden>Photo: Wikipedia, Kimchi fried rice</a></figcaption></figure></div>
+  <div class="intro">
+    <h2 id="t-kimchi-fried-rice">Kimchi fried rice</h2>
+    <ul class="meta"><li><strong>Type:</strong> Rice</li><li><strong>Time:</strong> 15 min</li><li><strong>Level:</strong> Easy</li></ul>
+    <div class="actions">
+      <button type="button" class="fav" aria-pressed="false" aria-label="Favorite Kimchi fried rice"><span aria-hidden="true" class="heart">&#9825;</span> Favorite</button>
+      <button type="button" class="copy" aria-label="Copy shopping list for Kimchi fried rice">Copy shopping list</button>
+      <button type="button" class="print" aria-label="Print Kimchi fried rice">Print</button>
+    </div>
+    <div class="servings" role="group" aria-label="Servings for Kimchi fried rice">
+      <button type="button" data-dir="-1" aria-label="Decrease servings for Kimchi fried rice">&minus;</button>
+      <span class="count" aria-live="polite">2 servings</span>
+      <button type="button" data-dir="1" aria-label="Increase servings for Kimchi fried rice">+</button>
+    </div>
+    <h3>Ingredients</h3>
+    <ul class="ingredients"><li><label><input type="checkbox"><span><span class="amt" data-amt="2" data-unit="bowls">2 bowls</span> cooked rice, day-old</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="1" data-unit="cup">1 cup</span> ripe kimchi, chopped</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="2" data-unit="tbsp">2 tbsp</span> kimchi juice</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="1" data-unit="tbsp">1 tbsp</span> gochujang</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="1" data-unit="tbsp">1 tbsp</span> sesame oil</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="2" data-unit="">2</span> eggs, for frying</span></label></li></ul>
+  </div>
+  <div class="steps-col"><h3>Method</h3><ol class="steps"><li>Heat a little oil in a wide pan. Fry the kimchi until soft. <button type="button" class="timer-btn" data-min="3" data-label="step 1 of Kimchi fried rice" aria-label="Start 3 minute timer for step 1 of Kimchi fried rice">Start 3 min timer</button> <span class="timer-out" role="timer"></span></li><li>Add the gochujang and kimchi juice and stir for 30 seconds.</li><li>Add the rice, break up any clumps, and fry on high heat. <button type="button" class="timer-btn" data-min="4" data-label="step 3 of Kimchi fried rice" aria-label="Start 4 minute timer for step 3 of Kimchi fried rice">Start 4 min timer</button> <span class="timer-out" role="timer"></span></li><li>Finish with sesame oil. Fry the eggs separately and place one on top of each serving.</li></ol><p class="tip"><strong>Tip:</strong> Cold, day-old rice fries better than fresh rice because it is drier.</p></div>
+</article>
+<article class="recipe" id="gyeran-jjim" aria-labelledby="t-gyeran-jjim" data-base="2" data-title="Gyeran-jjim (steamed egg)" data-wiki="Gyeran-jjim" data-cat="Sides" data-name="gyeran-jjim (steamed egg)" data-text="eggs water or anchovy stock salt saeujeot (salted shrimp) or fish sauce green onion, finely sliced">
+  <div class="left"><figure><svg viewBox="0 0 400 220" role="img" aria-label="Illustration of a clay pot of fluffy steamed egg"><ellipse cx="200" cy="178" rx="130" ry="18" fill="#5a3b24"/><path d="M60 105h280a140 78 0 0 1-280 0z" fill="#5a3b24"/><ellipse cx="200" cy="105" rx="140" ry="40" fill="#f6d466"/><circle cx="140" cy="100" r="9" fill="#4f8a3d"/><circle cx="210" cy="88" r="9" fill="#4f8a3d"/><circle cx="270" cy="112" r="9" fill="#4f8a3d"/><circle cx="180" cy="135" r="9" fill="#4f8a3d"/><circle cx="240" cy="140" r="9" fill="#4f8a3d"/></svg><figcaption class="meta"><span>Fluffy steamed egg in a clay pot</span> <a class="credit" href="https://en.wikipedia.org/wiki/Gyeran-jjim" hidden>Photo: Wikipedia, Gyeran-jjim (steamed egg)</a></figcaption></figure></div>
+  <div class="intro">
+    <h2 id="t-gyeran-jjim">Gyeran-jjim (steamed egg)</h2>
+    <ul class="meta"><li><strong>Type:</strong> Sides</li><li><strong>Time:</strong> 15 min</li><li><strong>Level:</strong> Easy</li></ul>
+    <div class="actions">
+      <button type="button" class="fav" aria-pressed="false" aria-label="Favorite Gyeran-jjim (steamed egg)"><span aria-hidden="true" class="heart">&#9825;</span> Favorite</button>
+      <button type="button" class="copy" aria-label="Copy shopping list for Gyeran-jjim (steamed egg)">Copy shopping list</button>
+      <button type="button" class="print" aria-label="Print Gyeran-jjim (steamed egg)">Print</button>
+    </div>
+    <div class="servings" role="group" aria-label="Servings for Gyeran-jjim (steamed egg)">
+      <button type="button" data-dir="-1" aria-label="Decrease servings for Gyeran-jjim (steamed egg)">&minus;</button>
+      <span class="count" aria-live="polite">2 servings</span>
+      <button type="button" data-dir="1" aria-label="Increase servings for Gyeran-jjim (steamed egg)">+</button>
+    </div>
+    <h3>Ingredients</h3>
+    <ul class="ingredients"><li><label><input type="checkbox"><span><span class="amt" data-amt="4" data-unit="">4</span> eggs</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="200" data-unit="ml">200 ml</span> water or anchovy stock</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="0.5" data-unit="tsp">½ tsp</span> salt</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="1" data-unit="tsp">1 tsp</span> saeujeot (salted shrimp) or fish sauce</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="1" data-unit="stalk">1 stalk</span> green onion, finely sliced</span></label></li></ul>
+  </div>
+  <div class="steps-col"><h3>Method</h3><ol class="steps"><li>Beat the eggs, then mix in the water, salt and saeujeot. Pour through a sieve for a smooth texture.</li><li>Pour into a small heat-safe pot. Cook on low heat, stirring, until it starts to set at the edges.</li><li>Cover with a lid and cook on the lowest heat until it puffs up. <button type="button" class="timer-btn" data-min="8" data-label="step 3 of Gyeran-jjim (steamed egg)" aria-label="Start 8 minute timer for step 3 of Gyeran-jjim (steamed egg)">Start 8 min timer</button> <span class="timer-out" role="timer"></span></li><li>Top with green onion and a few drops of sesame oil. Serve in the pot.</li></ol><p class="tip"><strong>Tip:</strong> Use equal parts egg and liquid for a firm texture, or 1:1.5 for a softer one.</p></div>
+</article>
+<article class="recipe" id="kimchi-jjigae" aria-labelledby="t-kimchi-jjigae" data-base="2" data-title="Kimchi jjigae" data-wiki="Kimchi-jjigae" data-cat="Soups &amp; stews" data-name="kimchi jjigae" data-text="ripe kimchi, chopped pork belly, sliced tofu, cubed water gochugaru gochujang garlic, minced green onion">
+  <div class="left"><figure><svg viewBox="0 0 400 220" role="img" aria-label="Illustration of a bubbling pot of kimchi stew"><ellipse cx="200" cy="178" rx="130" ry="18" fill="#2b2f2d"/><path d="M60 105h280a140 78 0 0 1-280 0z" fill="#2b2f2d"/><ellipse cx="200" cy="105" rx="140" ry="40" fill="#b3301c"/><circle cx="140" cy="100" r="9" fill="#f3e3c0"/><circle cx="210" cy="88" r="9" fill="#f3e3c0"/><circle cx="270" cy="112" r="9" fill="#f3e3c0"/><circle cx="180" cy="135" r="9" fill="#f3e3c0"/><circle cx="240" cy="140" r="9" fill="#f3e3c0"/></svg><figcaption class="meta"><span>Bubbling kimchi stew with tofu and pork</span> <a class="credit" href="https://en.wikipedia.org/wiki/Kimchi-jjigae" hidden>Photo: Wikipedia, Kimchi jjigae</a></figcaption></figure></div>
+  <div class="intro">
+    <h2 id="t-kimchi-jjigae">Kimchi jjigae</h2>
+    <ul class="meta"><li><strong>Type:</strong> Soups &amp; stews</li><li><strong>Time:</strong> 30 min</li><li><strong>Level:</strong> Easy</li></ul>
+    <div class="actions">
+      <button type="button" class="fav" aria-pressed="false" aria-label="Favorite Kimchi jjigae"><span aria-hidden="true" class="heart">&#9825;</span> Favorite</button>
+      <button type="button" class="copy" aria-label="Copy shopping list for Kimchi jjigae">Copy shopping list</button>
+      <button type="button" class="print" aria-label="Print Kimchi jjigae">Print</button>
+    </div>
+    <div class="servings" role="group" aria-label="Servings for Kimchi jjigae">
+      <button type="button" data-dir="-1" aria-label="Decrease servings for Kimchi jjigae">&minus;</button>
+      <span class="count" aria-live="polite">2 servings</span>
+      <button type="button" data-dir="1" aria-label="Increase servings for Kimchi jjigae">+</button>
+    </div>
+    <h3>Ingredients</h3>
+    <ul class="ingredients"><li><label><input type="checkbox"><span><span class="amt" data-amt="2" data-unit="cups">2 cups</span> ripe kimchi, chopped</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="150" data-unit="g">150 g</span> pork belly, sliced</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="0.5" data-unit="block">½ block</span> tofu, cubed</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="500" data-unit="ml">500 ml</span> water</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="1" data-unit="tbsp">1 tbsp</span> gochugaru</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="1" data-unit="tbsp">1 tbsp</span> gochujang</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="3" data-unit="cloves">3 cloves</span> garlic, minced</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="1" data-unit="stalk">1 stalk</span> green onion</span></label></li></ul>
+  </div>
+  <div class="steps-col"><h3>Method</h3><ol class="steps"><li>Stir-fry the pork and kimchi in a pot until the pork is no longer pink. <button type="button" class="timer-btn" data-min="5" data-label="step 1 of Kimchi jjigae" aria-label="Start 5 minute timer for step 1 of Kimchi jjigae">Start 5 min timer</button> <span class="timer-out" role="timer"></span></li><li>Add gochugaru, gochujang, garlic and water. Bring to a boil.</li><li>Reduce the heat and simmer. <button type="button" class="timer-btn" data-min="20" data-label="step 3 of Kimchi jjigae" aria-label="Start 20 minute timer for step 3 of Kimchi jjigae">Start 20 min timer</button> <span class="timer-out" role="timer"></span></li><li>Add the tofu and green onion and cook 3 more minutes. Serve with rice.</li></ol><p class="tip"><strong>Tip:</strong> The more sour the kimchi, the better the stew. Old kimchi is ideal.</p></div>
+</article>
+<article class="recipe" id="bibimbap" aria-labelledby="t-bibimbap" data-base="2" data-title="Bibimbap" data-wiki="Bibimbap" data-cat="Rice" data-name="bibimbap" data-text="cooked rice spinach bean sprouts carrot, julienned zucchini, julienned minced beef soy sauce eggs gochujang sesame oil">
+  <div class="left"><figure><svg viewBox="0 0 400 220" role="img" aria-label="Illustration of a bowl of rice topped with colorful vegetables and an egg"><ellipse cx="200" cy="178" rx="130" ry="18" fill="#3b3b3b"/><path d="M60 105h280a140 78 0 0 1-280 0z" fill="#3b3b3b"/><ellipse cx="200" cy="105" rx="140" ry="40" fill="#f1ead8"/><circle cx="140" cy="100" r="9" fill="#6a9a5b"/><circle cx="210" cy="88" r="9" fill="#6a9a5b"/><circle cx="270" cy="112" r="9" fill="#6a9a5b"/><circle cx="180" cy="135" r="9" fill="#6a9a5b"/><circle cx="240" cy="140" r="9" fill="#6a9a5b"/></svg><figcaption class="meta"><span>Rice bowl with seasoned vegetables, beef and egg</span> <a class="credit" href="https://en.wikipedia.org/wiki/Bibimbap" hidden>Photo: Wikipedia, Bibimbap</a></figcaption></figure></div>
+  <div class="intro">
+    <h2 id="t-bibimbap">Bibimbap</h2>
+    <ul class="meta"><li><strong>Type:</strong> Rice</li><li><strong>Time:</strong> 40 min</li><li><strong>Level:</strong> Medium</li></ul>
+    <div class="actions">
+      <button type="button" class="fav" aria-pressed="false" aria-label="Favorite Bibimbap"><span aria-hidden="true" class="heart">&#9825;</span> Favorite</button>
+      <button type="button" class="copy" aria-label="Copy shopping list for Bibimbap">Copy shopping list</button>
+      <button type="button" class="print" aria-label="Print Bibimbap">Print</button>
+    </div>
+    <div class="servings" role="group" aria-label="Servings for Bibimbap">
+      <button type="button" data-dir="-1" aria-label="Decrease servings for Bibimbap">&minus;</button>
+      <span class="count" aria-live="polite">2 servings</span>
+      <button type="button" data-dir="1" aria-label="Increase servings for Bibimbap">+</button>
+    </div>
+    <h3>Ingredients</h3>
+    <ul class="ingredients"><li><label><input type="checkbox"><span><span class="amt" data-amt="2" data-unit="bowls">2 bowls</span> cooked rice</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="150" data-unit="g">150 g</span> spinach</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="100" data-unit="g">100 g</span> bean sprouts</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="1" data-unit="">1</span> carrot, julienned</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="1" data-unit="">1</span> zucchini, julienned</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="150" data-unit="g">150 g</span> minced beef</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="1" data-unit="tbsp">1 tbsp</span> soy sauce</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="2" data-unit="">2</span> eggs</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="2" data-unit="tbsp">2 tbsp</span> gochujang</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="2" data-unit="tsp">2 tsp</span> sesame oil</span></label></li></ul>
+  </div>
+  <div class="steps-col"><h3>Method</h3><ol class="steps"><li>Blanch the spinach and bean sprouts separately. Squeeze dry and season each with a little sesame oil and salt.</li><li>Stir-fry the carrot and zucchini separately until just tender.</li><li>Cook the beef with the soy sauce until browned.</li><li>Fry the eggs sunny-side up.</li><li>Place rice in bowls, arrange the toppings and egg on top, and add gochujang. Mix before eating.</li></ol><p class="tip"><strong>Tip:</strong> Mix everything thoroughly at the table so the sauce coats every grain.</p></div>
+</article>
+<article class="recipe" id="japchae" aria-labelledby="t-japchae" data-base="2" data-title="Japchae" data-wiki="Japchae" data-cat="Sides" data-name="japchae" data-text="sweet potato noodles spinach carrot, julienned onion, sliced shiitake mushrooms, sliced soy sauce sugar sesame oil garlic, minced sesame seeds">
+  <div class="left"><figure><svg viewBox="0 0 400 220" role="img" aria-label="Illustration of a plate of glossy glass noodles with vegetables"><ellipse cx="200" cy="178" rx="130" ry="18" fill="#3b2f26"/><path d="M60 105h280a140 78 0 0 1-280 0z" fill="#3b2f26"/><ellipse cx="200" cy="105" rx="140" ry="40" fill="#8a6a4d"/><circle cx="140" cy="100" r="9" fill="#e07a3a"/><circle cx="210" cy="88" r="9" fill="#e07a3a"/><circle cx="270" cy="112" r="9" fill="#e07a3a"/><circle cx="180" cy="135" r="9" fill="#e07a3a"/><circle cx="240" cy="140" r="9" fill="#e07a3a"/></svg><figcaption class="meta"><span>Glass noodles stir-fried with vegetables</span> <a class="credit" href="https://en.wikipedia.org/wiki/Japchae" hidden>Photo: Wikipedia, Japchae</a></figcaption></figure></div>
+  <div class="intro">
+    <h2 id="t-japchae">Japchae</h2>
+    <ul class="meta"><li><strong>Type:</strong> Sides</li><li><strong>Time:</strong> 35 min</li><li><strong>Level:</strong> Medium</li></ul>
+    <div class="actions">
+      <button type="button" class="fav" aria-pressed="false" aria-label="Favorite Japchae"><span aria-hidden="true" class="heart">&#9825;</span> Favorite</button>
+      <button type="button" class="copy" aria-label="Copy shopping list for Japchae">Copy shopping list</button>
+      <button type="button" class="print" aria-label="Print Japchae">Print</button>
+    </div>
+    <div class="servings" role="group" aria-label="Servings for Japchae">
+      <button type="button" data-dir="-1" aria-label="Decrease servings for Japchae">&minus;</button>
+      <span class="count" aria-live="polite">2 servings</span>
+      <button type="button" data-dir="1" aria-label="Increase servings for Japchae">+</button>
+    </div>
+    <h3>Ingredients</h3>
+    <ul class="ingredients"><li><label><input type="checkbox"><span><span class="amt" data-amt="150" data-unit="g">150 g</span> sweet potato noodles</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="100" data-unit="g">100 g</span> spinach</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="1" data-unit="">1</span> carrot, julienned</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="1" data-unit="">1</span> onion, sliced</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="4" data-unit="">4</span> shiitake mushrooms, sliced</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="3" data-unit="tbsp">3 tbsp</span> soy sauce</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="1" data-unit="tbsp">1 tbsp</span> sugar</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="2" data-unit="tbsp">2 tbsp</span> sesame oil</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="2" data-unit="cloves">2 cloves</span> garlic, minced</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="1" data-unit="tbsp">1 tbsp</span> sesame seeds</span></label></li></ul>
+  </div>
+  <div class="steps-col"><h3>Method</h3><ol class="steps"><li>Boil the noodles, then rinse in cold water and cut into shorter lengths. <button type="button" class="timer-btn" data-min="6" data-label="step 1 of Japchae" aria-label="Start 6 minute timer for step 1 of Japchae">Start 6 min timer</button> <span class="timer-out" role="timer"></span></li><li>Blanch the spinach. Stir-fry the carrot, onion and mushrooms separately.</li><li>Toss the noodles with soy sauce, sugar, garlic and sesame oil in a hot pan for 2 minutes.</li><li>Mix in the vegetables, sprinkle with sesame seeds, and serve warm or at room temperature.</li></ol><p class="tip"><strong>Tip:</strong> Cook each vegetable separately so every one keeps its own color and texture.</p></div>
+</article>
+<article class="recipe" id="pajeon" aria-labelledby="t-pajeon" data-base="2" data-title="Pajeon" data-wiki="Pajeon" data-cat="Snacks" data-name="pajeon" data-text="plain flour cold water egg green onion, cut in long pieces salt cooking oil soy sauce, for dipping vinegar, for dipping">
+  <div class="left"><figure><svg viewBox="0 0 400 220" role="img" aria-label="Illustration of a golden green onion pancake cut into squares"><ellipse cx="200" cy="178" rx="130" ry="18" fill="#5a4b3a"/><path d="M60 105h280a140 78 0 0 1-280 0z" fill="#5a4b3a"/><ellipse cx="200" cy="105" rx="140" ry="40" fill="#e5b84f"/><circle cx="140" cy="100" r="9" fill="#4f8a3d"/><circle cx="210" cy="88" r="9" fill="#4f8a3d"/><circle cx="270" cy="112" r="9" fill="#4f8a3d"/><circle cx="180" cy="135" r="9" fill="#4f8a3d"/><circle cx="240" cy="140" r="9" fill="#4f8a3d"/></svg><figcaption class="meta"><span>Crispy green onion pancake with dipping sauce</span> <a class="credit" href="https://en.wikipedia.org/wiki/Pajeon" hidden>Photo: Wikipedia, Pajeon</a></figcaption></figure></div>
+  <div class="intro">
+    <h2 id="t-pajeon">Pajeon</h2>
+    <ul class="meta"><li><strong>Type:</strong> Snacks</li><li><strong>Time:</strong> 20 min</li><li><strong>Level:</strong> Easy</li></ul>
+    <div class="actions">
+      <button type="button" class="fav" aria-pressed="false" aria-label="Favorite Pajeon"><span aria-hidden="true" class="heart">&#9825;</span> Favorite</button>
+      <button type="button" class="copy" aria-label="Copy shopping list for Pajeon">Copy shopping list</button>
+      <button type="button" class="print" aria-label="Print Pajeon">Print</button>
+    </div>
+    <div class="servings" role="group" aria-label="Servings for Pajeon">
+      <button type="button" data-dir="-1" aria-label="Decrease servings for Pajeon">&minus;</button>
+      <span class="count" aria-live="polite">2 servings</span>
+      <button type="button" data-dir="1" aria-label="Increase servings for Pajeon">+</button>
+    </div>
+    <h3>Ingredients</h3>
+    <ul class="ingredients"><li><label><input type="checkbox"><span><span class="amt" data-amt="1" data-unit="cup">1 cup</span> plain flour</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="200" data-unit="ml">200 ml</span> cold water</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="1" data-unit="">1</span> egg</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="6" data-unit="stalks">6 stalks</span> green onion, cut in long pieces</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="0.5" data-unit="tsp">½ tsp</span> salt</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="3" data-unit="tbsp">3 tbsp</span> cooking oil</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="2" data-unit="tbsp">2 tbsp</span> soy sauce, for dipping</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="1" data-unit="tbsp">1 tbsp</span> vinegar, for dipping</span></label></li></ul>
+  </div>
+  <div class="steps-col"><h3>Method</h3><ol class="steps"><li>Whisk the flour, water, egg and salt into a thin batter.</li><li>Heat the oil in a pan. Lay the green onions flat in the pan and pour the batter over them.</li><li>Fry until golden, then flip and fry the other side. <button type="button" class="timer-btn" data-min="3" data-label="step 3 of Pajeon" aria-label="Start 3 minute timer for step 3 of Pajeon">Start 3 min timer</button> <span class="timer-out" role="timer"></span></li><li>Cut into squares and serve with the soy sauce and vinegar mixed together.</li></ol><p class="tip"><strong>Tip:</strong> Cold water and a hot, well-oiled pan are the secrets to crispy edges.</p></div>
+</article>
+<article class="recipe" id="miyeokguk" aria-labelledby="t-miyeokguk" data-base="2" data-title="Miyeokguk (seaweed soup)" data-wiki="Miyeokguk" data-cat="Soups &amp; stews" data-name="miyeokguk (seaweed soup)" data-text="dried seaweed (miyeok) beef brisket, sliced water sesame oil garlic, minced soy sauce salt">
+  <div class="left"><figure><svg viewBox="0 0 400 220" role="img" aria-label="Illustration of a bowl of dark seaweed soup"><ellipse cx="200" cy="178" rx="130" ry="18" fill="#2f3a36"/><path d="M60 105h280a140 78 0 0 1-280 0z" fill="#2f3a36"/><ellipse cx="200" cy="105" rx="140" ry="40" fill="#2f5a3f"/><circle cx="140" cy="100" r="9" fill="#e8d9b5"/><circle cx="210" cy="88" r="9" fill="#e8d9b5"/><circle cx="270" cy="112" r="9" fill="#e8d9b5"/><circle cx="180" cy="135" r="9" fill="#e8d9b5"/><circle cx="240" cy="140" r="9" fill="#e8d9b5"/></svg><figcaption class="meta"><span>Seaweed soup, traditionally eaten on birthdays</span> <a class="credit" href="https://en.wikipedia.org/wiki/Miyeokguk" hidden>Photo: Wikipedia, Miyeokguk (seaweed soup)</a></figcaption></figure></div>
+  <div class="intro">
+    <h2 id="t-miyeokguk">Miyeokguk (seaweed soup)</h2>
+    <ul class="meta"><li><strong>Type:</strong> Soups &amp; stews</li><li><strong>Time:</strong> 40 min</li><li><strong>Level:</strong> Easy</li></ul>
+    <div class="actions">
+      <button type="button" class="fav" aria-pressed="false" aria-label="Favorite Miyeokguk (seaweed soup)"><span aria-hidden="true" class="heart">&#9825;</span> Favorite</button>
+      <button type="button" class="copy" aria-label="Copy shopping list for Miyeokguk (seaweed soup)">Copy shopping list</button>
+      <button type="button" class="print" aria-label="Print Miyeokguk (seaweed soup)">Print</button>
+    </div>
+    <div class="servings" role="group" aria-label="Servings for Miyeokguk (seaweed soup)">
+      <button type="button" data-dir="-1" aria-label="Decrease servings for Miyeokguk (seaweed soup)">&minus;</button>
+      <span class="count" aria-live="polite">2 servings</span>
+      <button type="button" data-dir="1" aria-label="Increase servings for Miyeokguk (seaweed soup)">+</button>
+    </div>
+    <h3>Ingredients</h3>
+    <ul class="ingredients"><li><label><input type="checkbox"><span><span class="amt" data-amt="10" data-unit="g">10 g</span> dried seaweed (miyeok)</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="100" data-unit="g">100 g</span> beef brisket, sliced</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="700" data-unit="ml">700 ml</span> water</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="1" data-unit="tbsp">1 tbsp</span> sesame oil</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="2" data-unit="cloves">2 cloves</span> garlic, minced</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="1" data-unit="tbsp">1 tbsp</span> soy sauce</span></label></li><li><label><input type="checkbox"><span><span class="amt" data-amt="0.5" data-unit="tsp">½ tsp</span> salt</span></label></li></ul>
+  </div>
+  <div class="steps-col"><h3>Method</h3><ol class="steps"><li>Soak the seaweed in cold water, then drain and cut into short pieces. <button type="button" class="timer-btn" data-min="20" data-label="step 1 of Miyeokguk (seaweed soup)" aria-label="Start 20 minute timer for step 1 of Miyeokguk (seaweed soup)">Start 20 min timer</button> <span class="timer-out" role="timer"></span></li><li>Heat the sesame oil in a pot and stir-fry the beef and garlic.</li><li>Add the seaweed and soy sauce and stir for 2 minutes.</li><li>Pour in the water, bring to a boil, then simmer. <button type="button" class="timer-btn" data-min="20" data-label="step 4 of Miyeokguk (seaweed soup)" aria-label="Start 20 minute timer for step 4 of Miyeokguk (seaweed soup)">Start 20 min timer</button> <span class="timer-out" role="timer"></span></li><li>Season with salt to taste and serve with rice.</li></ol><p class="tip"><strong>Tip:</strong> Soak the seaweed in cold water until it expands to about ten times its size.</p></div>
+</article>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; <span class="year">2026</span> Bapsang. Final project.</p>
+    <p>Photos: <a href="https://en.wikipedia.org/wiki/Korean_cuisine">Wikipedia</a> contributors, under their free licences. <a href="#main-content">Back to top</a></p>
+  </div>
+</footer>
+<div id="announcer" class="sr-only" role="status" aria-live="assertive"></div>
+<script src="script.js"></script>
+</body>
+</html>
