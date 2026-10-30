@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>JavaScript Basics</title>
 
   <style>
@@ -35,10 +36,47 @@
     button {
       padding: 6px 10px;
     }
+
+    /* ADDED: visible keyboard focus */
+    :focus-visible {
+      outline: 3px solid #0b57d0;
+      outline-offset: 2px;
+    }
+
+    /* ADDED: label that screen readers read but sighted users do not see */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    /* ADDED: skip link, hidden until it gets keyboard focus */
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+    }
+
+    .skip-link:focus {
+      left: 0.5rem;
+      top: 0.5rem;
+      z-index: 9999;
+      background: #1a2744;
+      color: white;
+      padding: 0.5rem 1rem;
+    }
   </style>
 </head>
 
 <body>
+
+  <!-- ADDED: skip link (first element in body) -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- ADDED: <main> landmark wraps all page content -->
+  <main id="main-content">
 
   <h1>JavaScript Basics</h1>
   <p>Basic examples of JavaScript, conditions, and loops.</p>
@@ -51,25 +89,31 @@
 
   <section>
     <h2>Reading User Input</h2>
+    <!-- ADDED: label for the name input -->
+    <label for="nameInput" class="sr-only">Your name</label>
     <input type="text" id="nameInput" placeholder="Your name">
     <button onclick="greet()">Greet</button>
-    <p id="output"></p>
+    <p id="output" role="status"></p>
   </section>
 
   <section>
     <h2>Condition (if / else)</h2>
-    <p>Enter a score:</p>
+    <!-- CHANGED: <p> became a <label> linked to the input -->
+    <label for="scoreInput">Enter a score:</label>
+    <br>
     <input type="number" id="scoreInput">
     <button onclick="checkScore()">Check</button>
-    <p id="grade"></p>
+    <p id="grade" role="status"></p>
   </section>
 
   <section>
     <h2>Loop (for)</h2>
-    <p>Enter a number:</p>
+    <!-- CHANGED: <p> became a <label> linked to the input -->
+    <label for="loopInput">Enter a number:</label>
+    <br>
     <input type="number" id="loopInput">
     <button onclick="runLoop()">Run</button>
-    <p id="loop"></p>
+    <p id="loop" role="status"></p>
   </section>
 
   <section>
@@ -82,8 +126,10 @@
     <p id="saved"></p>
   </section>
 
+  </main>
+
   <script>
-    let name = 'DELGERBAT';
+    let name = 'Mahendra';
     const MAX = 100;
 
     console.log(name);
