@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#4a172b" />
+  <meta name="description" content="BiHE.COM — meet your forever person, or at least someone who shares the blanket." />
+  <title>BiHE.COM — Two hearts. One Wi-Fi password.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Pacifico&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+
+</head>
+<body>
+  <div class="topline">Not your parents' matchmaking site. <strong>Unless your parents are cool.</strong> ✨</div>
+
+  <nav class="navbar" aria-label="Main navigation">
+    <div class="container nav-inner">
+      <a class="logo" href="#home" id="logoEasterEgg" aria-label="BiHE home — click five times for a surprise"><span class="logo-mark">♡</span>BiHE<span style="color:var(--gold)">.COM</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="#profiles">Find people</a>
+        <a href="#how">How it works</a>
+        <a href="#stories">Success stories</a>
+        <a href="#pricing">Plans</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="nav-actions">
+        <button class="icon-btn" id="themeToggle" aria-label="Switch to dark mode" title="Toggle light and dark mode">☾</button>
+        <button class="btn join-btn" id="joinNav">Join Free <span aria-hidden="true">↗</span></button>
+        <button class="icon-btn menu-btn" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="hero-kicker"><span>✦</span> THE SEARCH FOR YOUR PERSON, BUT MAKE IT FUN</div>
+          <h1 data-regular="Find Your Forever (Or At Least Someone Who Shares the Blanket)" data-parent="Find a Nice Human, Beta (And Please Share the Blanket)">Find Your Forever (Or At Least Someone Who Shares the Blanket)</h1>
+          <p class="hero-sub" data-regular="Dating apps gave you situationships. Your auntie gave you 47 biodatas. We give you <strong>actual options</strong> — with verified profiles and a little ✨delulu✨ optimism." data-parent="Enough scrolling, beta. We found nice profiles, respectable families, and people with actual jobs. Your future is looking bright.">Dating apps gave you situationships. Your auntie gave you 47 biodatas. We give you <strong>actual options</strong> — with verified profiles and a little ✨delulu✨ optimism.</p>
+          <div class="search-card" aria-label="Find your match">
+            <div class="search-grid">
+              <div class="field">
+                <label for="lookingFor">I’m looking for</label>
+                <select id="lookingFor"><option value="Bride">A Bride 💐</option><option value="Groom">A Groom 🤵</option></select>
+              </div>
+              <div class="field">
+                <label for="ageRange">Age range</label>
+                <select id="ageRange"><option value="18-35">18–35 years</option><option value="21-27">21–27 years</option><option value="25-32">25–32 years</option><option value="28-38">28–38 years</option><option value="35-45">35–45 years</option></select>
+              </div>
+              <div class="field">
+                <label for="religion">Religion</label>
+                <select id="religion"><option value="Any">Any / Open-minded</option><option>Hindu</option><option>Buddhist</option><option>Muslim</option><option>Christian</option><option>Prefer not to say</option></select>
+              </div>
+              <div class="field">
+                <label for="location">Location</label>
+                <select id="location"><option value="Any">Anywhere 🌍</option><option>Seoul</option><option>Busan</option><option>Incheon</option><option>Daegu</option><option>Daejeon</option></select>
+              </div>
+              <button class="btn gold search-submit" id="searchMatches">Find My Match <span aria-hidden="true">♡</span></button>
+            </div>
+            <p class="search-feedback" id="searchFeedback" aria-live="polite"></p>
+          </div>
+          <div class="trust-row">
+            <span><b>✓</b> Verified vibes</span><span><b>♡</b> Intentional dating</span><span><b>✦</b> Zero auntie pressure (mostly)</span>
+          </div>
+        </div>
+        <div class="hero-visual" aria-label="Illustration of two people finding love">
+          <div class="visual-orbit">
+            <div class="couple-card" aria-hidden="true">
+              <div class="sun"></div><div class="silhouette"></div><div class="silhouette second"></div>
+              <div class="couple-label">THE PLOT TWIST IS YOU TWO ♡</div>
+            </div>
+            <div class="float-card one"><strong>Green flag energy 💚</strong><small>Emotionally available-ish</small><div class="mini-avatars"><i>🌷</i><i>🧋</i><i>🐈</i><i>✨</i></div></div>
+            <div class="float-card two"><strong>99% chemistry</strong><small>They both love late-night snacks</small></div>
+            <div class="heart-sticker" aria-hidden="true">♥</div>
+            <div class="rating-sticker">10/10<br>VIBES</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="counter-strip" aria-label="BiHE community statistics">
+      <div class="container counter-inner">
+        <div class="counter-stat"><strong class="count-up" data-target="12483">0</strong><span>couples matched<br>and still stealing fries</span></div>
+        <div class="counter-divider" aria-hidden="true"></div>
+        <div class="counter-stat"><strong class="count-up" data-target="3291">0</strong><span>parents stopped asking<br>“when are you getting married?”</span></div>
+      </div>
+    </section>
+
+    <section class="section compat-section" id="calculator">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">SCIENCE-ISH, BUT CUTE</span>
+          <h2>Is it love, or just <span class="script">good Wi-Fi?</span></h2>
+          <p>Enter two names. Our highly unqualified Love Algorithm will consult the stars, your snack preferences, and absolutely no peer-reviewed research.</p>
+        </div>
+        <div class="compat-card reveal">
+          <div class="compat-title"><h3>💘 The Compatibility Calculator</h3><p>For entertainment. Please do not cancel your wedding based on a percentage.</p></div>
+          <form class="compat-form" id="compatForm">
+            <div class="field"><label for="nameOne">Your name</label><input id="nameOne" type="text" placeholder="e.g. Alex" maxlength="24" required /></div>
+            <div class="plus-heart" aria-hidden="true">♡ + ♡</div>
+            <div class="field"><label for="nameTwo">Their name</label><input id="nameTwo" type="text" placeholder="e.g. Jamie" maxlength="24" required /></div>
+            <button class="btn" type="submit">Run the Love Algorithm <span>✦</span></button>
+          </form>
+          <div class="loading-area" id="compatLoading" aria-live="polite">
+            <div class="loading-heart">💗</div><div class="loading-text" id="loadingText">Consulting the stars...</div><div class="loading-track"><div class="loading-fill" id="loadingFill"></div></div>
+          </div>
+          <div class="compat-result" id="compatResult" aria-live="polite"><div class="score-ring" id="scoreRing"><strong id="scoreValue">88%</strong></div><h4 id="compatVerdict">Main character couple energy.</h4><p id="compatMessage">You have elite potential. Please communicate and share the charger.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section profiles-section" id="profiles">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">THE CUTIES ARE IN</span>
+          <h2>Swipe right on <span class="script">good energy.</span></h2>
+          <p>Real-ish sample profiles, premium-level bios, and the occasional person who says “I love travelling” but means the grocery store. Swipe, tap, or use the buttons.</p>
+        </div>
+        <div class="deck-wrap reveal">
+          <div class="profile-stage" id="profileStage" aria-label="Sample member profile cards">
+            <div class="profile-card back-two" aria-hidden="true"></div><div class="profile-card back" aria-hidden="true"></div>
+            <article class="profile-card active" id="activeProfile" aria-live="polite"></article>
+            <div class="profile-actions">
+              <button class="round-action pass" id="passProfile" aria-label="Pass on this profile" title="Pass">✕</button>
+              <button class="round-action like" id="likeProfile" aria-label="Like this profile" title="Like">♥</button>
+            </div>
+          </div>
+          <aside class="deck-aside">
+            <span class="eyebrow">YOUR POTENTIAL PLOT</span>
+            <h3>One good swipe could change your group chat.</h3>
+            <p>Every profile is a little story. Look for kindness, consistency, and someone who doesn't call replying “being too available”.</p>
+            <div class="deck-progress" id="deckProgress"><span class="on"></span><span></span><span></span><span></span><span></span><span></span></div>
+            <div class="deck-count" id="deckCount">PROFILE 1 OF 6</div>
+            <div class="swipe-hint">↔ On touch screens, swipe the card left or right.</div>
+            <button class="btn ghost" id="resetDeck" style="margin-top:20px">↻ Reset the deck</button>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section quiz-section" id="quiz">
+      <div class="container">
+        <div class="section-head reveal"><span class="eyebrow">SELF-AWARENESS, BUT MAKE IT FUN</span><h2>What kind of <span class="script">spouse</span> are you?</h2><p>Five questions. One highly scientific personality result. Please don't put this on your LinkedIn.</p></div>
+        <div class="quiz-shell reveal">
+          <div class="quiz-intro"><div><span class="eyebrow">THE SPOUSE-PECTRUM™</span><h3>Are you the lover, the snack thief, or the family group-chat admin?</h3><p>Find out what your future person is signing up for. No refunds on personality.</p></div><div class="quiz-stamp">100% unserious<br>0% boring</div></div>
+          <div class="quiz-content">
+            <div id="quizQuestionArea">
+              <div class="quiz-progress-top"><span id="quizStep">QUESTION 1 OF 5</span><span>♡</span></div>
+              <div class="quiz-bar"><span id="quizBar"></span></div>
+              <div class="quiz-question" id="quizQuestion">It's 1 a.m. and you hear a noise in the kitchen. You...</div>
+              <div class="quiz-options" id="quizOptions"></div>
+              <button class="btn quiz-next" id="quizNext" disabled>Lock it in →</button>
+            </div>
+            <div class="quiz-result" id="quizResult" aria-live="polite"><div class="result-emoji" id="quizResultEmoji">🌙</div><h3 id="quizResultTitle">The Midnight Snacker</h3><p id="quizResultText">Your love language is sharing the last dumpling. You are loyal, cozy, and mysteriously awake at 2:17 a.m.</p><div class="quiz-result-actions"><button class="btn" id="shareQuiz">Share my result ↗</button><button class="btn ghost" id="retryQuiz">Retake quiz</button></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="parents-banner" aria-label="Parents mode settings">
+      <div class="container parents-inner">
+        <div class="parents-copy"><div class="parents-icon">👩‍👦</div><div><h3>Is your family already in the group chat?</h3><p>Activate Parents’ Mode for the classic “beta, salary kati cha?” experience.</p></div></div>
+        <div class="switch-wrap"><span>Parents' Mode</span><label class="switch"><input type="checkbox" id="parentsToggle" aria-label="Toggle Parents' Mode"><span class="slider"></span></label><span id="parentsState">OFF</span></div>
+      </div>
+    </section>
+
+    <section class="section bingo-section" id="bingo">
+      <div class="container">
+        <div class="section-head reveal"><span class="eyebrow">STANDARDS? WE LOVE THAT</span><h2>Dealbreaker <span class="script">bingo.</span></h2><p>Tap the things your future boo absolutely cannot do. Or must do. We support having a type.</p></div>
+        <div class="bingo-layout reveal">
+          <div class="bingo-grid" id="bingoGrid" aria-label="Clickable dealbreaker bingo board"></div>
+          <aside class="bingo-aside"><span class="pill">YOUR NON-NEGOTIABLES</span><h3>Build your dream human.</h3><p>Choose the green flags and red flags that matter to you. This list stays right here in your browser.</p><div class="bingo-count"><strong id="bingoCount">0</strong><span>picked so far</span></div><div class="selected-dealbreakers" id="selectedDealbreakers"><span>Your standards await ✨</span></div><button class="btn ghost" id="clearBingo">Clear my list ↻</button></aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section steps-section" id="how">
+      <div class="container">
+        <div class="section-head reveal"><span class="eyebrow">EASIER THAN EXPLAINING YOUR TYPE TO AUNTY</span><h2>Four steps to <span class="script">your person.</span></h2><p>No complicated rituals. No sending your biodata by fax. Just a few steps and a little courage.</p></div>
+        <div class="steps-grid">
+          <article class="step-card reveal"><span class="step-num">01</span><div class="step-icon">🪪</div><h3>Create Profile</h3><p>Show us your best side. Your “I can cook” side is optional but appreciated.</p></article>
+          <article class="step-card reveal"><span class="step-num">02</span><div class="step-icon">💞</div><h3>Get Matched</h3><p>Meet people who share your values, humour, and snack opinions.</p></article>
+          <article class="step-card reveal"><span class="step-num">03</span><div class="step-icon">💬</div><h3>Chat</h3><p>Say hi. Ask questions. Discover whether “hey” is their entire vocabulary.</p></article>
+          <article class="step-card reveal"><span class="step-num">04</span><div class="step-icon">🏡</div><h3>Meet the Family</h3><p>When it feels right, bring the families in. Chai diplomacy begins.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section stories-section" id="stories">
+      <div class="container">
+        <div class="section-head reveal"><span class="eyebrow">LOVE, WITH A SIDE OF ROASTING</span><h2>Success stories that <span class="script">slap.</span></h2><p>Some people found a soulmate. Some found a permanent co-op player. Both count.</p></div>
+        <div class="stories-shell reveal">
+          <article class="story-card" id="storyCard" aria-live="polite"><div class="quote-mark">“</div><p class="story-quote" id="storyQuote">We argued about the thermostat on our first date. Five years later, still arguing. Married.</p><div class="story-person"><div class="story-avatars"><span>👩🏻</span><span>👨🏽</span></div><span id="storyNames">Maya & Rohan · Matched in 2021</span></div></article>
+          <div class="story-controls"><button class="icon-btn" id="storyPrev" aria-label="Previous story">←</button><div class="story-dots" id="storyDots"></div><button class="icon-btn" id="storyNext" aria-label="Next story">→</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section pricing-section" id="pricing">
+      <div class="container">
+        <div class="section-head reveal"><span class="eyebrow">LOVE IS PRICELESS. THE FILTERS ARE NOT.</span><h2>Pick your <span class="script">commitment level.</span></h2><p>Start free. Upgrade when you're ready to stop pretending you don't care about read receipts.</p></div>
+        <div class="pricing-grid">
+          <article class="price-card reveal"><div class="plan-icon">🛍️</div><h3>Window Shopper</h3><p class="plan-desc">For the curious cutie who is “just looking”.</p><div class="price">₩0 <small>/ forever</small></div><ul class="plan-list"><li>Create your profile</li><li>Browse sample matches</li><li>Basic search filters</li><li>One like per day</li></ul><button class="btn ghost plan-select" data-plan="Window Shopper">Start window shopping</button></article>
+          <article class="price-card popular reveal"><span class="popular-badge">MOST POPULAR ✦</span><div class="plan-icon">✨</div><h3>Serious Business</h3><p class="plan-desc">For the “I am actually ready” era.</p><div class="price">₩9,900 <small>/ month</small></div><ul class="plan-list"><li>Everything in Free</li><li>Unlimited likes</li><li>See who liked you</li><li>Extra compatibility filters</li></ul><button class="btn gold plan-select" data-plan="Serious Business">Choose Gold</button></article>
+          <article class="price-card reveal"><div class="plan-icon">👑</div><h3>Aunty-Approved</h3><p class="plan-desc">For a premium family-approved soft launch.</p><div class="price">₩19,900 <small>/ month</small></div><ul class="plan-list"><li>Everything in Gold</li><li>Verified profile spotlight</li><li>Family intro toolkit</li><li>Priority support (and vibes)</li></ul><button class="btn ghost plan-select" data-plan="Aunty-Approved">Go Platinum</button></article>
+        </div>
+        <p class="muted" style="text-align:center;font-size:.68rem;margin:24px 0 0">Demo pricing for this concept site. No payments are collected. Your bank account can unclench.</p>
+      </div>
+    </section>
+
+    <section class="section faq-section" id="faq">
+      <div class="container">
+        <div class="section-head reveal"><span class="eyebrow">QUESTIONS YOUR GROUP CHAT WON'T ANSWER</span><h2>Frequently asked <span class="script">things.</span></h2><p>Serious answers, unserious delivery. That's the BiHE way.</p></div>
+        <div class="faq-grid reveal" id="faqGrid">
+          <article class="faq-item"><button class="faq-q" aria-expanded="false"><span>Can my mom create my profile?</span><span>＋</span></button><div class="faq-answer"><p>Absolutely. Can she also reject everyone, ask for their horoscope, and request a salary slip? Also yes. We recommend letting her help without handing over the password.</p></div></article>
+          <article class="faq-item"><button class="faq-q" aria-expanded="false"><span>Are the profiles verified?</span><span>＋</span></button><div class="faq-answer"><p>This demo uses sample profiles, so nobody here is a real match. A production version should add identity checks, reporting tools, moderation, and clear privacy controls before real people sign up.</p></div></article>
+          <article class="faq-item"><button class="faq-q" aria-expanded="false"><span>Is the compatibility calculator actually accurate?</span><span>＋</span></button><div class="faq-answer"><p>It is powered by vibes, not science. Real compatibility comes from honest conversations, aligned values, mutual respect, and whether you can negotiate the thermostat peacefully.</p></div></article>
+          <article class="faq-item"><button class="faq-q" aria-expanded="false"><span>Can I find someone outside my city?</span><span>＋</span></button><div class="faq-answer"><p>In this front-end demo, the filters use local sample data. A live platform could support wider searches, distance preferences, and long-distance matchmaking.</p></div></article>
+          <article class="faq-item"><button class="faq-q" aria-expanded="false"><span>Will BiHE tell my parents when I like someone?</span><span>＋</span></button><div class="faq-answer"><p>No surprise parent notifications here. Your dating life is yours. This demo does not send data anywhere, and Parents’ Mode only changes the jokes you see on the page.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section signup-section" id="signup">
+      <div class="container">
+        <div class="section-head reveal"><span class="eyebrow">YOUR MEET-CUTE STARTS HERE</span><h2>Make your <span class="script">soft launch.</span></h2><p>Create a demo profile in under a minute. No backend, no awkward calls, no pressure.</p></div>
+        <div class="signup-shell reveal">
+          <aside class="signup-aside"><span class="eyebrow">THE FIRST CHAPTER</span><h3>Plot twist: your person might be one click away.</h3><p>Bring your whole self. The chaotic playlist, the niche hobbies, the questionable sleep schedule. Especially those.</p><div class="signup-perks"><span><b>✓</b> No fake perfection required</span><span><b>✓</b> Good vibes only (and boundaries)</span><span><b>✓</b> Sample profile, zero commitment</span><span><b>✓</b> Parents can stay in the group chat</span></div></aside>
+          <div class="signup-form-wrap">
+            <div id="signupFormArea"><h3>Let's get you on the list 💌</h3><p>All fields are required. The emoji field is our extremely advanced personality test.</p>
+              <form id="signupForm" novalidate>
+                <div class="signup-grid">
+                  <div class="field"><label for="signupName">Full name</label><input id="signupName" name="name" type="text" placeholder="Your name" maxlength="45" required /></div>
+                  <div class="field"><label for="signupAge">Age</label><input id="signupAge" name="age" type="number" min="18" max="99" placeholder="18+ only" required /></div>
+                  <div class="field"><label for="signupGender">I identify as</label><select id="signupGender" name="gender" required><option value="">Choose one</option><option>Woman</option><option>Man</option><option>Non-binary</option><option>Prefer not to say</option></select></div>
+                  <div class="field"><label for="signupCity">City</label><input id="signupCity" name="city" type="text" placeholder="e.g. Seoul" maxlength="40" required /></div>
+                  <div class="field full"><label for="signupEmoji">Describe yourself in 3 emojis</label><input id="signupEmoji" name="emoji" type="text" placeholder="e.g. 🥟 🎧 🌱" maxlength="30" required /><span class="emoji-hint">Three emojis. Your entire personality. No pressure.</span></div>
+                </div>
+                <p class="form-error" id="signupError" aria-live="polite"></p>
+                <button class="btn gold signup-submit" type="submit">Create My Demo Profile ♡</button>
+              </form>
+            </div>
+            <div class="signup-success" id="signupSuccess" aria-live="polite"><div class="success-emoji">🎉💞</div><h3>You're on the list!</h3><p id="successCopy">Your demo profile is ready. Somewhere, a future person just felt a disturbance in the snack force.</p><button class="btn" id="signupAgain">Make another profile</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a class="logo" href="#home"><span class="logo-mark">♡</span>BiHE<span style="color:#f4d38f">.COM</span></a><p>For people who want something real, with a little humour and a lot of heart. Your next chapter deserves a good opening line.</p><div class="footer-social"><a href="#" aria-label="Instagram">ig</a><a href="#" aria-label="TikTok">♪</a><a href="#" aria-label="Facebook">f</a><a href="#" aria-label="YouTube">▶</a></div></div>
+        <div class="footer-col"><h4>EXPLORE</h4><a href="#profiles">Find people</a><a href="#how">How it works</a><a href="#stories">Success stories</a><a href="#pricing">Membership</a></div>
+        <div class="footer-col"><h4>THE DETAILS</h4><a href="#faq">FAQs</a><a href="#signup">Create profile</a><a href="#bingo">Dealbreaker bingo</a><a href="#calculator">Love calculator</a></div>
+        <div class="footer-col"><h4>THE IMPORTANT STUFF</h4><a href="#faq">Safety & privacy</a><a href="#faq">Community guidelines</a><a href="#faq">Terms (demo)</a><a href="#faq">Contact</a></div>
+      </div>
+      <div class="footer-bottom"><span>© 2026 BiHE.COM · A playful front-end concept. Sample profiles only.</span><span class="footer-joke">Made with love, chai, and questionable life choices.</span></div>
+    </div>
+  </footer>
+
+  <!-- LoveBot floating helper -->
+  <button class="lovebot-launch" id="lovebotLaunch" aria-label="Open LoveBot dating advice" title="Ask LoveBot">🤖</button>
+  <section class="bot-panel" id="botPanel" aria-label="LoveBot chat" aria-hidden="true">
+    <div class="bot-head"><div><strong>LoveBot 3000 💘</strong><small>Part-time cupid. Full-time yapper.</small></div><button class="bot-close" id="botClose" aria-label="Close LoveBot">×</button></div>
+    <div class="bot-messages" id="botMessages" aria-live="polite"><div class="bot-msg">Hey bestie. Need dating advice, a pep talk, or help decoding “haha” with no punctuation? 👀</div></div>
+    <div class="bot-suggestions"><button data-question="I have a first date">First date nerves</button><button data-question="They left me on read">Left on read</button><button data-question="How do I spot green flags?">Green flags?</button></div>
+    <form class="bot-input-row" id="botForm"><input id="botInput" type="text" placeholder="Ask me anything..." aria-label="Ask LoveBot a question" maxlength="160" /><button type="submit">Send</button></form>
+  </section>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="match-overlay" id="matchOverlay" role="dialog" aria-modal="true" aria-labelledby="matchTitle">
+    <div class="match-modal"><button class="modal-close" id="matchClose" aria-label="Close match popup">×</button><div class="match-spark">💘✨💘</div><h3 id="matchTitle">It's a Match!</h3><p id="matchCopy">You both liked each other. The group chat is about to get loud.</p><button class="btn gold" id="matchContinue">Keep the butterflies coming</button></div>
+  </div>
+
+   <script src="script-source.js" defer></script>
+</body>
+</html>
