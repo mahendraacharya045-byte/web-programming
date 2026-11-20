@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Component | Mahendra Acharya</title>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.24.7/babel.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #121a2d;
+      --text: #edf2ff;
+      --muted: #9ba8c7;
+      --line: #2a3756;
+      --accent: #8fa8ff;
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+    main {
+      width: min(720px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 56px 0 72px;
+    }
+    h1, h2, h3 {
+      font-family: ui-serif, "Iowan Old Style", Georgia, serif;
+      line-height: 1.15;
+      margin: 0;
+    }
+    .profile h1 {
+      font-size: clamp(2.2rem, 7vw, 3.4rem);
+      letter-spacing: -0.02em;
+    }
+    .profile p {
+      margin: 10px 0 36px;
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--accent);
+      border-radius: 14px;
+      padding: 22px 26px;
+      margin-bottom: 18px;
+    }
+    .card h2 {
+      font-size: 1.35rem;
+      margin-bottom: 12px;
+    }
+    .card ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .card li { margin: 4px 0; }
+    .card p { margin: 0 0 8px; color: var(--muted); }
+    .card p:last-child { margin-bottom: 0; }
+    .card li::marker { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <div id="root"></div>
+
+  <script type="text/babel">
+
+    function Card({ title, children }) {
+      return (
+        <section className="card">
+          <h2>{title}</h2>
+          {children}
+        </section>
+      );
+    }
+
+    function App() {
+      return (
+        <main>
+          <header className="profile">
+            <h1>Mahendra Acharya</h1>
+            <p>Computer Engineering student at Gachon University</p>
+          </header>
+
+          <Card title="My Lecture Topics">
+            <ul>
+              <li>React Components</li>
+              <li>Props and State</li>
+              <li>JavaScript</li>
+            </ul>
+          </Card>
+
+          <Card title="My Homework">
+            <p>Build a student portfolio component using React.</p>
+            <p>Practice reusable components and props.</p>
+          </Card>
+        </main>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+
+  </script>
+
+</body>
+</html>
