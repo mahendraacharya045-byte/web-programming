@@ -1,9 +1,11 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notifications</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f3f5fa" />
+  <meta name="description" content="A responsive notifications center built with React." />
+  <title>Notifications · Campus</title>
 
   <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
@@ -11,117 +13,277 @@
 
   <style>
     :root {
-      --bg: #f4f6f9;
-      --panel: #ffffff;
-      --text: #14192b;
-      --muted: #4a5470;
-      --line: #d5dbe8;
-      --success: #15803d;
-      --warning: #b45309;
-      --info: #1d4ed8;
+      color-scheme: light;
+      --bg: #f3f5fa;
+      --surface: #fff;
+      --surface-soft: #f7f8fc;
+      --text: #20243a;
+      --muted: #727991;
+      --line: #e5e8f0;
+      --brand: #514ce0;
+      --brand-soft: #efefff;
+      --success: #18845b;
+      --success-soft: #e9f8f0;
+      --warning: #b76b16;
+      --warning-soft: #fff4e6;
+      --info: #3667cf;
+      --info-soft: #edf3ff;
+      --danger: #c24f59;
+      --shadow: 0 20px 60px rgba(36, 46, 87, .08);
     }
     * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-      line-height: 1.6;
+    body { margin: 0; color: var(--text); background: var(--bg); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    button:focus-visible, input:focus-visible { outline: 3px solid #9997ff; outline-offset: 3px; }
+    .app { min-height: 100vh; }
+    .topbar { height: 72px; position: sticky; z-index: 10; top: 0; display: flex; align-items: center; border-bottom: 1px solid var(--line); background: rgba(255,255,255,.88); backdrop-filter: blur(14px); }
+    .topbar-inner { width: min(1280px, calc(100% - 48px)); display: flex; align-items: center; justify-content: space-between; gap: 20px; margin: 0 auto; }
+    .brand { display: flex; align-items: center; gap: 11px; color: var(--text); text-decoration: none; font-weight: 800; letter-spacing: -.03em; }
+    .brand-mark { width: 35px; height: 35px; display: grid; place-items: center; border-radius: 12px; background: linear-gradient(145deg, #746dff, #4d49d7); color: #fff; font-size: .8rem; box-shadow: 0 6px 14px rgba(81,76,224,.22); }
+    .top-actions { display: flex; align-items: center; gap: 12px; }
+    .top-link { color: var(--muted); text-decoration: none; font-size: .87rem; font-weight: 650; }
+    .top-link:hover { color: var(--brand); }
+    .top-divider { height: 25px; border-left: 1px solid var(--line); }
+    .avatar { width: 36px; height: 36px; display: grid; place-items: center; border: 2px solid white; border-radius: 50%; background: #d8d8ff; color: #4945b7; font-size: .77rem; font-weight: 850; box-shadow: 0 0 0 1px var(--line); }
+    .layout { width: min(1280px, calc(100% - 48px)); display: grid; grid-template-columns: 210px minmax(0, 1fr) 250px; gap: 28px; margin: 0 auto; padding: 42px 0 70px; align-items: start; }
+    .sidebar { position: sticky; top: 102px; padding: 15px 10px; }
+    .side-label { margin: 0 12px 13px; color: #9aa0b2; font-size: .68rem; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; }
+    .side-nav { display: grid; gap: 5px; }
+    .side-nav a { display: flex; align-items: center; gap: 12px; padding: 11px 13px; border-radius: 11px; color: var(--muted); text-decoration: none; font-size: .87rem; font-weight: 650; transition: .18s; }
+    .side-nav a:hover { color: var(--brand); background: var(--brand-soft); }
+    .side-nav a.active { color: var(--brand); background: var(--brand-soft); font-weight: 780; }
+    .side-icon { width: 18px; height: 18px; display: grid; place-items: center; font-size: 1rem; }
+    .side-count { margin-left: auto; padding: 2px 7px; border-radius: 99px; background: #e2e1ff; color: var(--brand); font-size: .68rem; font-weight: 800; }
+    .side-note { margin: 28px 8px 0; padding: 16px; border: 1px solid #e2e3fa; border-radius: 15px; background: linear-gradient(145deg, #f7f6ff, #fff); }
+    .side-note strong { display: block; margin-bottom: 6px; color: #3c3a91; font-size: .81rem; }
+    .side-note p { margin: 0; color: #777a9c; font-size: .74rem; line-height: 1.55; }
+
+    .main-column { min-width: 0; }
+    .page-heading { display: flex; justify-content: space-between; align-items: end; gap: 18px; margin: 0 0 24px; }
+    .eyebrow { margin: 0 0 7px; color: var(--brand); font-size: .69rem; font-weight: 850; letter-spacing: .14em; text-transform: uppercase; }
+    h1 { margin: 0; font-family: ui-serif, Georgia, "Times New Roman", serif; font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 600; letter-spacing: -.055em; line-height: 1.05; }
+    .subtitle { margin: 10px 0 0; color: var(--muted); font-size: .93rem; }
+    .heading-icon { width: 52px; height: 52px; flex: 0 0 52px; display: grid; place-items: center; border: 1px solid #dedfff; border-radius: 17px; background: #ededff; color: var(--brand); }
+    .heading-icon svg { width: 24px; height: 24px; }
+    .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 13px; margin-bottom: 15px; }
+    .tabs { display: inline-flex; gap: 3px; padding: 4px; border: 1px solid var(--line); border-radius: 11px; background: var(--surface); }
+    .tab { min-height: 34px; padding: 0 13px; border: 0; border-radius: 8px; background: transparent; color: var(--muted); cursor: pointer; font-size: .79rem; font-weight: 750; transition: .18s; }
+    .tab:hover { color: var(--brand); }
+    .tab[aria-selected="true"] { background: var(--brand); color: #fff; box-shadow: 0 3px 8px rgba(81,76,224,.2); }
+    .mark-all { display: inline-flex; align-items: center; gap: 7px; padding: 8px 2px; border: 0; background: transparent; color: var(--brand); cursor: pointer; font-size: .78rem; font-weight: 800; white-space: nowrap; }
+    .mark-all:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .mark-all:disabled { opacity: .45; cursor: default; text-decoration: none; }
+    .search-wrap { position: relative; margin-bottom: 17px; }
+    .search-wrap svg { width: 17px; height: 17px; position: absolute; top: 50%; left: 14px; color: #969db1; transform: translateY(-50%); pointer-events: none; }
+    .search { width: 100%; height: 45px; padding: 0 15px 0 42px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--text); outline: none; font-size: .85rem; transition: border .2s, box-shadow .2s; }
+    .search::placeholder { color: #a2a8b8; }
+    .search:focus { border-color: #a8a5ff; box-shadow: 0 0 0 4px rgba(81,76,224,.08); }
+    .list-meta { display: flex; justify-content: space-between; align-items: center; margin: 0 3px 10px; color: var(--muted); font-size: .74rem; }
+    .list-meta strong { color: var(--text); font-weight: 780; }
+    .notification-list { display: grid; gap: 11px; margin: 0; padding: 0; list-style: none; }
+    .notification { position: relative; display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 14px; padding: 18px 18px 16px; border: 1px solid var(--line); border-radius: 15px; background: var(--surface); box-shadow: 0 2px 6px rgba(32,36,58,.025); transition: transform .2s, box-shadow .2s, border-color .2s; animation: enter .25s ease both; }
+    .notification:hover { transform: translateY(-2px); border-color: #d8daf1; box-shadow: 0 10px 25px rgba(36,46,87,.07); }
+    @keyframes enter { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+    .notification.unread { border-color: #dadbfa; background: linear-gradient(100deg, #fff 0%, #fff 88%, #fbfaff 100%); }
+    .notification.unread::before { content: ""; position: absolute; top: 22px; left: -1px; width: 3px; height: 23px; border-radius: 0 4px 4px 0; background: var(--brand); }
+    .notice-icon { width: 43px; height: 43px; display: grid; place-items: center; border-radius: 14px; font-size: 1.16rem; }
+    .notification.success .notice-icon { background: var(--success-soft); }
+    .notification.warning .notice-icon { background: var(--warning-soft); }
+    .notification.info .notice-icon { background: var(--info-soft); }
+    .notice-content { min-width: 0; }
+    .notice-head { display: flex; flex-wrap: wrap; align-items: center; gap: 7px 9px; margin: 1px 0 5px; }
+    .notice-title { margin: 0; color: var(--text); font-size: .9rem; font-weight: 780; letter-spacing: -.015em; line-height: 1.4; }
+    .type-label { padding: 3px 7px; border-radius: 5px; font-size: .61rem; font-weight: 850; letter-spacing: .055em; text-transform: uppercase; }
+    .success .type-label { color: var(--success); background: var(--success-soft); }
+    .warning .type-label { color: var(--warning); background: var(--warning-soft); }
+    .info .type-label { color: var(--info); background: var(--info-soft); }
+    .notice-text { margin: 0; color: var(--muted); font-size: .79rem; line-height: 1.55; }
+    .notice-category { display: inline-block; margin-top: 11px; color: #969caf; font-size: .68rem; font-weight: 700; }
+    .notice-actions { display: flex; align-items: start; gap: 4px; }
+    .notice-action { width: 31px; height: 31px; display: grid; place-items: center; border: 0; border-radius: 9px; background: transparent; color: #9aa0b1; cursor: pointer; transition: .18s; }
+    .notice-action:hover { background: var(--surface-soft); color: var(--brand); }
+    .notice-action.dismiss:hover { background: #fff0f0; color: var(--danger); }
+    .notice-action svg { width: 16px; height: 16px; }
+    .empty-state { padding: 45px 20px; border: 1px dashed #d5d8e5; border-radius: 15px; background: rgba(255,255,255,.58); text-align: center; }
+    .empty-icon { width: 52px; height: 52px; display: grid; place-items: center; margin: 0 auto 14px; border-radius: 17px; background: var(--brand-soft); color: var(--brand); font-size: 1.4rem; }
+    .empty-state h2 { margin: 0 0 6px; font-size: 1.03rem; letter-spacing: -.02em; }
+    .empty-state p { margin: 0; color: var(--muted); font-size: .82rem; }
+    .footer-note { margin: 17px 2px 0; color: #959bad; font-size: .7rem; }
+
+    .summary { position: sticky; top: 102px; display: grid; gap: 14px; padding-top: 71px; }
+    .summary-card { padding: 19px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+    .summary-card h2 { margin: 0 0 16px; font-size: .86rem; letter-spacing: -.01em; }
+    .summary-total { display: flex; align-items: baseline; gap: 8px; margin-bottom: 18px; }
+    .summary-total strong { font-family: Georgia, serif; font-size: 2.55rem; font-weight: 500; letter-spacing: -.07em; line-height: 1; }
+    .summary-total span { color: var(--muted); font-size: .75rem; }
+    .stat-line { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: .76rem; }
+    .stat-value { display: inline-flex; align-items: center; gap: 7px; color: var(--text); font-weight: 800; }
+    .stat-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--brand); }
+    .stat-dot.green { background: var(--success); }
+    .summary-tip { padding: 18px; border-radius: 16px; background: linear-gradient(145deg, #5b56e8, #4844c7); color: #fff; box-shadow: 0 12px 25px rgba(81,76,224,.19); }
+    .tip-mark { width: 30px; height: 30px; display: grid; place-items: center; margin-bottom: 13px; border: 1px solid rgba(255,255,255,.3); border-radius: 10px; background: rgba(255,255,255,.12); }
+    .summary-tip h2 { margin: 0 0 6px; font-size: .88rem; letter-spacing: -.01em; }
+    .summary-tip p { margin: 0; color: rgba(255,255,255,.78); font-size: .75rem; line-height: 1.55; }
+
+    @media (max-width: 1080px) {
+      .layout { grid-template-columns: 175px minmax(0,1fr); gap: 24px; }
+      .summary { position: static; grid-column: 2; grid-template-columns: repeat(2, minmax(0,1fr)); padding-top: 0; }
+      .summary-card, .summary-tip { min-height: 165px; }
     }
-    main {
-      width: min(560px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 48px 0;
+    @media (max-width: 700px) {
+      .topbar { height: 64px; }
+      .topbar-inner, .layout { width: min(100% - 32px, 560px); }
+      .top-link, .top-divider { display: none; }
+      .layout { display: flex; flex-direction: column; gap: 24px; padding: 26px 0 50px; }
+      .sidebar { position: static; width: 100%; padding: 0; }
+      .side-label, .side-note { display: none; }
+      .side-nav { display: flex; gap: 7px; overflow-x: auto; padding-bottom: 4px; }
+      .side-nav a { flex: 0 0 auto; gap: 8px; padding: 9px 11px; border: 1px solid transparent; font-size: .77rem; }
+      .side-nav a.active { border-color: #dfdfff; }
+      .side-count { margin-left: 0; }
+      .main-column { width: 100%; }
+      .summary { width: 100%; grid-template-columns: 1fr 1fr; }
+      .summary-card, .summary-tip { min-height: unset; }
+      .page-heading { margin-bottom: 19px; }
     }
-    h1 {
-      margin: 0 0 4px;
-      font-family: ui-serif, Georgia, serif;
-      font-size: 2rem;
+    @media (max-width: 470px) {
+      .toolbar { align-items: flex-start; flex-direction: column; }
+      .tabs { width: 100%; }
+      .tab { flex: 1; }
+      .mark-all { align-self: flex-end; }
+      .notification { grid-template-columns: 38px minmax(0,1fr) auto; gap: 10px; padding: 14px 12px; }
+      .notice-icon { width: 37px; height: 37px; border-radius: 12px; font-size: 1rem; }
+      .notice-actions { flex-direction: column; }
+      .notice-title { font-size: .83rem; }
+      .notice-text { font-size: .75rem; }
+      .summary { grid-template-columns: 1fr; }
+      .summary-card { min-height: 0; }
+      .summary-tip { display: none; }
+      h1 { font-size: 2.35rem; }
+      .heading-icon { width: 45px; height: 45px; flex-basis: 45px; }
     }
-    .count { margin: 0 0 20px; color: var(--muted); }
-    ul { list-style: none; margin: 0; padding: 0; }
-    .notification {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 14px 16px;
-      margin: 0 0 12px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-left: 5px solid var(--accent);
-      border-radius: 10px;
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
     }
-    .notification.success { --accent: var(--success); }
-    .notification.warning { --accent: var(--warning); }
-    .notification.info    { --accent: var(--info); }
-    .label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--accent);
-    }
-    .icon { font-size: 1.3rem; line-height: 1.3; }
   </style>
 </head>
-
 <body>
-
   <div id="root"></div>
-
   <script type="text/babel">
+    const { useMemo, useState } = React;
 
-    const notifications = [
-      { id: 1, type: 'success', message: 'Profile updated successfully' },
-      { id: 2, type: 'warning', message: 'Assignment deadline is approaching' },
-      { id: 3, type: 'info', message: 'New lecture materials available' },
+    const initialNotifications = [
+      { id: 1, type: 'success', title: 'Profile updated successfully', message: 'Your profile details have been saved. You can review them any time from your account.', category: 'Account', read: true },
+      { id: 2, type: 'warning', title: 'Assignment deadline is approaching', message: 'Take a moment to review the requirements and plan your final check before you submit.', category: 'Coursework', read: false },
+      { id: 3, type: 'info', title: 'New lecture materials available', message: 'There are new materials to explore in your web programming course hub.', category: 'Learning', read: false },
+      { id: 4, type: 'info', title: 'A quick React refresher', message: 'Components help divide an interface into reusable parts. Props pass information between them.', category: 'Learning', read: true },
+      { id: 5, type: 'success', title: 'Portfolio practice is ready', message: 'Keep building your student portfolio by composing small pieces into a complete page.', category: 'Coursework', read: true },
+      { id: 6, type: 'warning', title: 'Review your learning checklist', message: 'JavaScript, JSX, props, and state are useful foundations to revisit as you practice.', category: 'Reminder', read: false }
     ];
 
-    const TYPES = {
-      success: { icon: '✅', label: 'Success' },
-      warning: { icon: '⚠️', label: 'Warning' },
-      info:    { icon: 'ℹ️', label: 'Info' },
+    const typeInfo = {
+      success: { label: 'Success', icon: '✓' },
+      warning: { label: 'Reminder', icon: '!' },
+      info: { label: 'Update', icon: 'i' }
     };
 
-    function NotificationItem({ type, message }) {
-      const { icon, label } = TYPES[type] ?? TYPES.info;
-
-      return (
-        <li className={'notification ' + type}>
-          <span className="icon" aria-hidden="true">{icon}</span>
-          <div>
-            <span className="label">{label}</span>
-            {message}
-          </div>
-        </li>
-      );
+    function Glyph({ name }) {
+      const paths = {
+        bell: <><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></>,
+        search: <><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></>,
+        check: <path d="m5 12 4 4L19 6"/>,
+        close: <><path d="m6 6 12 12M18 6 6 18"/></>,
+        grid: <><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></>,
+        book: <><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 5.5v16M8 7h8m-8 4h8"/></>,
+        settings: <><circle cx="12" cy="12" r="3"/><path d="m19.4 15 .1.1 1.4 1.1-1.4 2.4-1.7-.6a8 8 0 0 1-1.6.9l-.3 1.8h-2.8l-.3-1.8a8 8 0 0 1-1.6-.9l-1.7.6-1.4-2.4 1.4-1.1a7 7 0 0 1 0-1.9l-1.4-1.1 1.4-2.4 1.7.6a8 8 0 0 1 1.6-.9l.3-1.8h2.8l.3 1.8a8 8 0 0 1 1.6.9l1.7-.6 1.4 2.4-1.4 1.1a7 7 0 0 1 0 1.9Z" transform="translate(-1 -1) scale(.95)"/></>
+      };
+      return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>;
     }
 
-    function NotificationList() {
-      return (
-        <main>
-          <h1>Notifications</h1>
-          <p className="count">
-            {notifications.length} {notifications.length === 1 ? 'notification' : 'notifications'}
-          </p>
-
-          <ul>
-            {notifications.map(n => (
-              <NotificationItem
-                key={n.id}
-                type={n.type}
-                message={n.message}
-              />
-            ))}
-          </ul>
-        </main>
-      );
+    function Topbar() {
+      return <header className="topbar"><div className="topbar-inner">
+        <a className="brand" href="#notifications"><span className="brand-mark">C</span><span>Campus</span></a>
+        <div className="top-actions"><a className="top-link" href="#notifications">Help center</a><span className="top-divider"></span><span className="avatar" aria-label="Mahendra Acharya">MA</span></div>
+      </div></header>;
     }
 
-    ReactDOM.createRoot(document.getElementById('root')).render(
-      <NotificationList />
-    );
+    function Sidebar({ unreadCount }) {
+      return <aside className="sidebar" aria-label="Main navigation">
+        <p className="side-label">Workspace</p>
+        <nav className="side-nav">
+          <a href="#notifications"><span className="side-icon"><Glyph name="grid" /></span>Overview</a>
+          <a className="active" href="#notifications" aria-current="page"><span className="side-icon"><Glyph name="bell" /></span>Notifications{unreadCount > 0 && <span className="side-count">{unreadCount}</span>}</a>
+          <a href="#notifications"><span className="side-icon"><Glyph name="book" /></span>My learning</a>
+          <a href="#notifications"><span className="side-icon"><Glyph name="settings" /></span>Settings</a>
+        </nav>
+        <div className="side-note"><strong>A little learning, often</strong><p>Check your updates and keep your coursework moving one step at a time.</p></div>
+      </aside>;
+    }
 
+    function NotificationItem({ item, onToggleRead, onDismiss }) {
+      const meta = typeInfo[item.type] || typeInfo.info;
+      return <li className={'notification ' + item.type + (item.read ? '' : ' unread')}>
+        <span className="notice-icon" aria-hidden="true">{meta.icon}</span>
+        <div className="notice-content">
+          <div className="notice-head"><h2 className="notice-title">{item.title}</h2><span className="type-label">{meta.label}</span></div>
+          <p className="notice-text">{item.message}</p><span className="notice-category">{item.category}</span>
+        </div>
+        <div className="notice-actions">
+          <button className="notice-action" type="button" onClick={() => onToggleRead(item.id)} aria-label={item.read ? 'Mark ' + item.title + ' unread' : 'Mark ' + item.title + ' read'} title={item.read ? 'Mark unread' : 'Mark read'}><Glyph name="check" /></button>
+          <button className="notice-action dismiss" type="button" onClick={() => onDismiss(item.id)} aria-label={'Dismiss ' + item.title} title="Dismiss"><Glyph name="close" /></button>
+        </div>
+      </li>;
+    }
+
+    function Summary({ total, unread, read }) {
+      return <aside className="summary" aria-label="Notification summary">
+        <section className="summary-card"><h2>Your inbox</h2><div className="summary-total"><strong>{total}</strong><span>updates shown</span></div>
+          <div className="stat-line"><span>Unread</span><span className="stat-value"><i className="stat-dot"></i>{unread}</span></div>
+          <div className="stat-line"><span>Read</span><span className="stat-value"><i className="stat-dot green"></i>{read}</span></div>
+        </section>
+        <section className="summary-tip"><span className="tip-mark"><Glyph name="check" /></span><h2>Stay in the loop</h2><p>Mark an update as read when you’re done, or dismiss it to tidy your inbox.</p></section>
+      </aside>;
+    }
+
+    function App() {
+      const [notifications, setNotifications] = useState(initialNotifications);
+      const [tab, setTab] = useState('All');
+      const [query, setQuery] = useState('');
+      const unreadCount = notifications.filter(item => !item.read).length;
+      const readCount = notifications.length - unreadCount;
+      const visible = useMemo(() => notifications.filter(item => {
+        const matchesTab = tab === 'All' || !item.read;
+        const text = (item.title + ' ' + item.message + ' ' + item.category + ' ' + item.type).toLowerCase();
+        return matchesTab && text.includes(query.trim().toLowerCase());
+      }), [notifications, tab, query]);
+      const toggleRead = id => setNotifications(items => items.map(item => item.id === id ? { ...item, read: !item.read } : item));
+      const dismiss = id => setNotifications(items => items.filter(item => item.id !== id));
+      const markAllRead = () => setNotifications(items => items.map(item => ({ ...item, read: true })));
+
+      return <div className="app" id="notifications">
+        <Topbar />
+        <div className="layout">
+          <Sidebar unreadCount={unreadCount} />
+          <main className="main-column">
+            <div className="page-heading"><div><p className="eyebrow">Your workspace</p><h1>Notifications</h1><p className="subtitle">A clear view of important class and account updates.</p></div><span className="heading-icon"><Glyph name="bell" /></span></div>
+            <div className="toolbar">
+              <div className="tabs" role="tablist" aria-label="Notification status">
+                {['All', 'Unread'].map(option => <button key={option} type="button" className="tab" role="tab" aria-selected={tab === option} onClick={() => setTab(option)}>{option}{option === 'Unread' && unreadCount > 0 ? ' (' + unreadCount + ')' : ''}</button>)}
+              </div>
+              <button className="mark-all" type="button" onClick={markAllRead} disabled={unreadCount === 0}><Glyph name="check" />Mark all as read</button>
+            </div>
+            <label className="search-wrap"><span className="sr-only">Search notifications</span><Glyph name="search" /><input className="search" type="search" placeholder="Search your updates..." value={query} onChange={event => setQuery(event.target.value)} /></label>
+            <div className="list-meta"><span><strong>{visible.length}</strong> {visible.length === 1 ? 'update' : 'updates'}</span><span>{unreadCount ? unreadCount + ' unread' : 'All caught up'}</span></div>
+            {visible.length ? <ul className="notification-list" aria-live="polite">{visible.map(item => <NotificationItem key={item.id} item={item} onToggleRead={toggleRead} onDismiss={dismiss} />)}</ul> : <div className="empty-state"><span className="empty-icon">✓</span><h2>{query ? 'No matching updates' : tab === 'Unread' ? 'You’re all caught up' : 'Your inbox is clear'}</h2><p>{query ? 'Try a different word or clear your search.' : 'New notifications will show up here.'}</p></div>}
+            <p className="footer-note">Use the check button to change an item’s read status. Dismissed items leave this view.</p>
+          </main>
+          <Summary total={notifications.length} unread={unreadCount} read={readCount} />
+        </div>
+      </div>;
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
   </script>
-
 </body>
 </html>
