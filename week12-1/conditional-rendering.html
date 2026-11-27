@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f4f7fb">
+  <title>Mahendra | Account Dashboard</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17263c;
+      --muted: #6e7c91;
+      --line: #e7edf4;
+      --blue: #4169e1;
+      --blue-dark: #3154c5;
+      --green: #168565;
+      --red: #c45252;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 42px 22px;
+      display: grid;
+      place-items: center;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse at 12% 10%, rgba(113, 154, 250, .16), transparent 32%),
+        radial-gradient(ellipse at 92% 92%, rgba(78, 186, 159, .13), transparent 30%),
+        #f4f7fb;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    button, a { font: inherit; }
+
+    .shell { width: min(100%, 1000px); }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 4px 18px;
+    }
+
+    .brand { display: flex; align-items: center; gap: 11px; font-size: 14px; font-weight: 750; letter-spacing: .01em; }
+    .brand-mark {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border-radius: 11px;
+      color: white;
+      background: linear-gradient(145deg, #6c8eff, #4169e1);
+      box-shadow: 0 5px 12px rgba(65, 105, 225, .24);
+    }
+    .top-note { color: var(--muted); font-size: 13px; }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(245px, 320px) 1fr;
+      overflow: hidden;
+      min-height: 560px;
+      border: 1px solid rgba(224, 232, 241, .9);
+      border-radius: 24px;
+      background: white;
+      box-shadow: 0 24px 70px rgba(28, 47, 78, .12), 0 3px 10px rgba(28, 47, 78, .04);
+    }
+
+    .profile-panel {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 36px 30px 28px;
+      overflow: hidden;
+      color: #f6f8ff;
+      background: linear-gradient(155deg, #223960 0%, #172b49 52%, #183e57 100%);
+    }
+    .profile-panel::before, .profile-panel::after {
+      position: absolute;
+      content: "";
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .profile-panel::before { width: 310px; height: 310px; right: -190px; top: 80px; }
+    .profile-panel::after { width: 230px; height: 230px; right: -145px; top: 120px; }
+    .profile-content { position: relative; z-index: 1; }
+    .eyebrow { color: #a9bee3; font-size: 11px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+    .avatar {
+      display: grid;
+      width: 84px;
+      height: 84px;
+      margin: 36px 0 19px;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 26px;
+      color: white;
+      background: linear-gradient(145deg, rgba(125, 157, 255, .96), rgba(82, 113, 216, .88));
+      box-shadow: 0 12px 28px rgba(8, 18, 39, .28), inset 0 1px 0 rgba(255,255,255,.25);
+      font-size: 28px;
+      font-weight: 750;
+      letter-spacing: -.04em;
+    }
+    .profile-panel h1 { margin: 0; font-size: 27px; letter-spacing: -.04em; }
+    .profile-caption { margin: 7px 0 27px; color: #b2c0d5; font-size: 13px; }
+    .profile-rule { height: 1px; margin: 0 0 22px; background: rgba(255,255,255,.14); }
+    .detail { margin: 0 0 18px; }
+    .detail-label { display: block; margin-bottom: 6px; color: #a9bee3; font-size: 10px; font-weight: 750; letter-spacing: .13em; text-transform: uppercase; }
+    .detail-value { color: #f2f6ff; font-size: 14px; font-weight: 600; }
+    .github-link { display: inline-flex; align-items: center; gap: 8px; color: #dbe5f5; text-decoration: none; font-size: 12px; font-weight: 600; overflow-wrap: anywhere; }
+    .github-link:hover { color: white; text-decoration: underline; text-underline-offset: 3px; }
+    .github-icon { flex: 0 0 auto; width: 17px; height: 17px; }
+    .panel-foot { position: relative; z-index: 1; margin-top: auto; padding-top: 28px; color: #9eafc9; font-size: 11px; }
+
+    .main-panel { display: flex; flex-direction: column; padding: 38px 44px 32px; }
+    .main-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 54px; }
+    .section-label { color: var(--muted); font-size: 12px; font-weight: 650; letter-spacing: .02em; }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0dfbf;
+      border-radius: 999px;
+      color: #9a6a1e;
+      background: #fff9ed;
+      font-size: 11px;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+    .status.logged-in { border-color: #ccebdd; color: #157251; background: #effaf5; }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 3px rgba(154, 106, 30, .1); }
+    .logged-in .status-dot { box-shadow: 0 0 0 3px rgba(21, 114, 81, .1); }
+    .welcome-kicker { margin: 0 0 11px; color: var(--blue); font-size: 12px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
+    .main-panel h2 { margin: 0; font-size: clamp(27px, 4vw, 36px); line-height: 1.15; letter-spacing: -.045em; }
+    .intro { max-width: 430px; margin: 13px 0 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
+
+    .notice {
+      display: flex;
+      gap: 12px;
+      margin: 30px 0 22px;
+      padding: 15px 16px;
+      border: 1px solid #f3dfbc;
+      border-radius: 13px;
+      color: #78571f;
+      background: #fffaf1;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .notice.success { border-color: #cdebdc; color: #176446; background: #f1fbf6; }
+    .notice-icon { display: grid; flex: 0 0 24px; width: 24px; height: 24px; place-items: center; border-radius: 8px; background: rgba(218, 170, 75, .15); font-weight: 800; }
+    .notice.success .notice-icon { background: rgba(42, 155, 112, .12); }
+    .notice strong { display: block; margin: 1px 0 2px; font-size: 12px; }
+
+    .info-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-top: 4px;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fbfcfe;
+    }
+    .info-card h3 { margin: 0 0 5px; font-size: 13px; }
+    .info-card p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.5; }
+    .info-icon { display: grid; flex: 0 0 38px; width: 38px; height: 38px; place-items: center; border-radius: 12px; color: #4169e1; background: #edf2ff; font-size: 17px; }
+
+    .actions { display: flex; align-items: center; gap: 14px; margin-top: auto; padding-top: 34px; }
+    .primary-button {
+      min-height: 46px;
+      padding: 0 21px;
+      border: 0;
+      border-radius: 11px;
+      color: white;
+      background: var(--blue);
+      box-shadow: 0 7px 15px rgba(65, 105, 225, .2);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 750;
+      transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+    }
+    .primary-button:hover { transform: translateY(-1px); background: var(--blue-dark); box-shadow: 0 9px 19px rgba(65, 105, 225, .25); }
+    .primary-button:focus-visible, .github-link:focus-visible { outline: 3px solid #8eabff; outline-offset: 3px; }
+    .primary-button.logout { background: var(--red); box-shadow: 0 7px 15px rgba(196, 82, 82, .18); }
+    .primary-button.logout:hover { background: #ad4141; }
+    .action-hint { color: #8a96a8; font-size: 11px; }
+    .footer { margin-top: 17px; color: #98a3b2; font-size: 10px; text-align: right; }
+
+    @media (max-width: 700px) {
+      body { padding: 24px 14px; place-items: start center; }
+      .topbar { margin: 0 3px 14px; }
+      .top-note { font-size: 11px; }
+      .workspace { grid-template-columns: 1fr; min-height: 0; border-radius: 19px; }
+      .profile-panel { padding: 25px 25px 21px; }
+      .avatar { width: 66px; height: 66px; margin: 24px 0 14px; border-radius: 21px; font-size: 23px; }
+      .profile-panel h1 { font-size: 24px; }
+      .profile-caption { margin-bottom: 19px; }
+      .profile-rule { margin-bottom: 17px; }
+      .detail { margin-bottom: 14px; }
+      .panel-foot { padding-top: 10px; }
+      .main-panel { padding: 27px 25px 24px; }
+      .main-top { margin-bottom: 39px; }
+      .footer { margin-top: 13px; }
+    }
+
+    @media (max-width: 390px) {
+      .top-note { display: none; }
+      .main-top { align-items: flex-start; }
+      .status { padding: 7px 9px; font-size: 10px; }
+      .actions { align-items: flex-start; flex-direction: column; }
+      .info-card { padding: 15px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    const profile = {
+      name: 'Mahendra',
+      id: '202537251',
+      github: 'https://github.com/mahendraacharya045-byte/web-programming/tree/main/week11-2'
+    };
+
+    function Notice({ loggedIn }) {
+      return (
+        <div className={`notice ${loggedIn ? 'success' : ''}`} role="status" aria-live="polite">
+          <span className="notice-icon" aria-hidden="true">{loggedIn ? '✓' : '!'}</span>
+          <span>
+            <strong>{loggedIn ? 'You’re signed in' : 'Sign in to continue'}</strong>
+            {loggedIn
+              ? 'Your dashboard is ready. You can now access your account.'
+              : 'Your account is currently offline. Sign in to open your dashboard.'}
+          </span>
+        </div>
+      );
+    }
+
+    function ProfilePanel() {
+      return (
+        <aside className="profile-panel" aria-label="Profile information">
+          <div className="profile-content">
+            <div className="eyebrow">Account profile</div>
+            <div className="avatar" aria-hidden="true">M</div>
+            <h1>{profile.name}</h1>
+            <p className="profile-caption">Personal dashboard</p>
+            <div className="profile-rule" />
+
+            <div className="detail">
+              <span className="detail-label">Student ID</span>
+              <span className="detail-value">{profile.id}</span>
+            </div>
+            <div className="detail">
+              <span className="detail-label">GitHub project</span>
+              <a className="github-link" href={profile.github} target="_blank" rel="noreferrer">
+                <svg className="github-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.56.1.76-.24.76-.54v-2.08c-3.1.67-3.76-1.32-3.76-1.32-.5-1.29-1.24-1.63-1.24-1.63-1.01-.69.08-.68.08-.68 1.12.08 1.7 1.15 1.7 1.15.99 1.69 2.6 1.2 3.23.91.1-.72.39-1.2.7-1.48-2.48-.28-5.08-1.24-5.08-5.52 0-1.22.44-2.22 1.15-3.01-.12-.28-.5-1.43.11-2.98 0 0 .94-.3 3.05 1.15a10.6 10.6 0 0 1 5.55 0c2.11-1.45 3.05-1.15 3.05-1.15.61 1.55.23 2.7.11 2.98.72.79 1.15 1.79 1.15 3.01 0 4.29-2.6 5.23-5.09 5.5.4.35.76 1.02.76 2.06v3.09c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z" />
+                </svg>
+                Open repository
+              </a>
+            </div>
+          </div>
+          <div className="panel-foot">Your profile at a glance</div>
+        </aside>
+      );
+    }
+
+    function Dashboard({ user }) {
+      return (
+        <section aria-labelledby="dashboard-title">
+          <p className="welcome-kicker">{user ? 'Welcome back' : 'Your account'}</p>
+          <h2 id="dashboard-title">
+            {user ? `Hello, ${user.name}.` : 'Your space is ready.'}
+          </h2>
+          <p className="intro">
+            {user
+              ? 'You are now logged into your personal dashboard. Your profile details are right here whenever you need them.'
+              : 'Sign in to view your personal dashboard and get back to your account.'}
+          </p>
+        </section>
+      );
+    }
+
+    function App() {
+      const [user, setUser] = useState(null);
+      const loggedIn = Boolean(user);
+
+      function toggleLogin() {
+        setUser(currentUser => currentUser ? null : profile);
+      }
+
+      return (
+        <div className="shell">
+          <header className="topbar">
+            <div className="brand"><span className="brand-mark" aria-hidden="true">✦</span>Account space</div>
+            <span className="top-note">A simple, personal dashboard</span>
+          </header>
+
+          <main className="workspace">
+            <ProfilePanel />
+            <div className="main-panel">
+              <div className="main-top">
+                <span className="section-label">Overview</span>
+                <span className={`status ${loggedIn ? 'logged-in' : ''}`}>
+                  <span className="status-dot" aria-hidden="true" />
+                  {loggedIn ? 'Online' : 'Offline'}
+                </span>
+              </div>
+
+              <Dashboard user={user} />
+              <Notice loggedIn={loggedIn} />
+
+              <div className="info-card">
+                <span className="info-icon" aria-hidden="true">⌘</span>
+                <div>
+                  <h3>Conditional rendering</h3>
+                  <p>This dashboard updates its message and status when you sign in or out.</p>
+                </div>
+              </div>
+
+              <div className="actions">
+                <button
+                  className={`primary-button ${loggedIn ? 'logout' : ''}`}
+                  type="button"
+                  onClick={toggleLogin}
+                  aria-label={loggedIn ? 'Log out of your account' : 'Log in to your account'}
+                >
+                  {loggedIn ? 'Log out' : 'Log in'} <span aria-hidden="true">{loggedIn ? '↗' : '→'}</span>
+                </button>
+                <span className="action-hint">{loggedIn ? 'End your current session' : 'Continue to your dashboard'}</span>
+              </div>
+            </div>
+          </main>
+          <div className="footer">Profile dashboard · {profile.id}</div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f4f6fa">
+  <title>Course Catalog | Mahendra</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #192842;
+      --muted: #758198;
+      --line: #e8edf4;
+      --blue: #4569dc;
+      --blue-dark: #3456c3;
+      --green: #15805d;
+      --amber: #a87120;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 28px 22px 40px;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse at 4% 18%, rgba(119, 151, 245, .12), transparent 28%),
+        radial-gradient(ellipse at 96% 72%, rgba(127, 199, 174, .10), transparent 30%),
+        #f4f6fa;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    button, input, a { font: inherit; }
+    button { cursor: pointer; }
+    .container { width: min(100%, 1120px); margin: 0 auto; }
+
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
+    .brand { display: flex; align-items: center; gap: 11px; font-size: 14px; font-weight: 800; letter-spacing: -.01em; }
+    .brand-mark { display: grid; width: 36px; height: 36px; place-items: center; border-radius: 12px; color: white; background: linear-gradient(145deg, #7795f3, #4569dc); box-shadow: 0 6px 14px rgba(69, 105, 220, .22); font-size: 17px; }
+    .brand small { display: block; margin-top: 2px; color: #8b96a9; font-size: 10px; font-weight: 600; letter-spacing: .04em; }
+    .profile { display: flex; align-items: center; gap: 11px; padding: 7px 10px 7px 7px; border: 1px solid #e4eaf2; border-radius: 14px; background: rgba(255,255,255,.82); }
+    .profile-avatar { display: grid; width: 35px; height: 35px; place-items: center; border-radius: 11px; color: #fff; background: #243b63; font-size: 14px; font-weight: 800; }
+    .profile-name { font-size: 12px; font-weight: 750; }
+    .profile-id { margin-top: 3px; color: var(--muted); font-size: 10px; }
+    .profile-link { margin-left: 5px; padding-left: 12px; border-left: 1px solid var(--line); color: var(--blue); text-decoration: none; font-size: 11px; font-weight: 700; }
+    .profile-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+    .hero { position: relative; display: flex; min-height: 228px; align-items: center; justify-content: space-between; gap: 28px; overflow: hidden; padding: 42px 48px; border-radius: 24px; color: white; background: linear-gradient(112deg, #192d50 0%, #233c68 58%, #33537f 100%); box-shadow: 0 16px 35px rgba(27, 49, 83, .15); }
+    .hero::before, .hero::after { position: absolute; content: ""; border: 1px solid rgba(255,255,255,.09); border-radius: 50%; pointer-events: none; }
+    .hero::before { width: 400px; height: 400px; top: -235px; right: -28px; }
+    .hero::after { width: 300px; height: 300px; top: -180px; right: 22px; }
+    .hero-copy { position: relative; z-index: 1; max-width: 600px; }
+    .eyebrow { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; color: #bdcbed; font-size: 10px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+    .eyebrow-dot { width: 7px; height: 7px; border-radius: 50%; background: #83ddbd; box-shadow: 0 0 0 4px rgba(131,221,189,.13); }
+    .hero h1 { margin: 0; font-size: clamp(32px, 4vw, 44px); letter-spacing: -.05em; line-height: 1.08; }
+    .hero p { max-width: 490px; margin: 13px 0 0; color: #c1cce0; font-size: 14px; line-height: 1.65; }
+    .hero-note { position: relative; z-index: 1; display: flex; flex: 0 0 auto; align-items: center; gap: 13px; padding: 16px 18px; border: 1px solid rgba(255,255,255,.16); border-radius: 15px; background: rgba(255,255,255,.08); backdrop-filter: blur(8px); }
+    .hero-note-icon { display: grid; width: 39px; height: 39px; place-items: center; border-radius: 12px; color: #e5edff; background: rgba(255,255,255,.13); font-size: 19px; }
+    .hero-note strong { display: block; font-size: 17px; }
+    .hero-note span { display: block; margin-top: 4px; color: #c1cce0; font-size: 10px; }
+
+    .summary { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; margin: -22px 28px 28px; }
+    .summary-card { display: flex; align-items: center; gap: 14px; min-height: 81px; padding: 15px 18px; border: 1px solid rgba(231,236,244,.9); border-radius: 15px; background: white; box-shadow: 0 8px 20px rgba(33, 51, 80, .06); }
+    .summary-icon { display: grid; flex: 0 0 40px; width: 40px; height: 40px; place-items: center; border-radius: 13px; color: #486bda; background: #eff3ff; font-size: 16px; }
+    .summary-card:nth-child(2) .summary-icon { color: #b67d2a; background: #fff6e8; }
+    .summary-card:nth-child(3) .summary-icon { color: #17805e; background: #eaf8f1; }
+    .summary-card strong { display: block; font-size: 22px; letter-spacing: -.04em; }
+    .summary-card span { display: block; margin-top: 3px; color: var(--muted); font-size: 10px; }
+
+    .content-grid { display: grid; grid-template-columns: minmax(0, 1fr) 310px; align-items: start; gap: 20px; }
+    .catalog-panel, .selected-panel { border: 1px solid #e7ecf3; border-radius: 18px; background: white; box-shadow: 0 7px 22px rgba(33, 51, 80, .045); }
+    .catalog-panel { padding: 24px; }
+    .panel-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 19px; }
+    .panel-heading h2, .selected-heading h2 { margin: 0; font-size: 17px; letter-spacing: -.025em; }
+    .panel-heading p { margin: 5px 0 0; color: var(--muted); font-size: 11px; }
+    .result-count { color: #8591a4; font-size: 10px; white-space: nowrap; }
+    .toolbar { display: grid; grid-template-columns: minmax(180px, 1fr) auto; gap: 12px; margin-bottom: 18px; }
+    .search-wrap { position: relative; }
+    .search-icon { position: absolute; top: 50%; left: 14px; transform: translateY(-50%); color: #8b97aa; font-size: 15px; pointer-events: none; }
+    .search-input { width: 100%; height: 42px; padding: 0 14px 0 39px; border: 1px solid #e3e9f1; border-radius: 11px; outline: none; color: var(--ink); background: #fbfcfe; font-size: 11px; transition: border .15s, box-shadow .15s; }
+    .search-input::placeholder { color: #9aa5b5; }
+    .search-input:focus { border-color: #8ba3f1; box-shadow: 0 0 0 3px rgba(69,105,220,.1); }
+    .filters { display: flex; align-items: center; gap: 5px; padding: 4px; border: 1px solid #edf0f5; border-radius: 11px; background: #f8f9fc; }
+    .filter-btn { min-height: 32px; padding: 0 11px; border: 0; border-radius: 8px; color: #778399; background: transparent; font-size: 10px; font-weight: 700; transition: .15s; }
+    .filter-btn:hover { color: var(--ink); background: #eef1f7; }
+    .filter-btn.active { color: white; background: #273e67; box-shadow: 0 3px 7px rgba(39,62,103,.16); }
+    .course-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .course-card { min-width: 0; padding: 17px; border: 1px solid #e8edf4; border-radius: 14px; background: #fff; transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease; }
+    .course-card:hover { transform: translateY(-2px); border-color: #d6def0; box-shadow: 0 9px 19px rgba(37,56,91,.07); }
+    .course-card.is-selected { border-color: #9bb0ef; background: linear-gradient(150deg, #fff 40%, #f8faff); }
+    .course-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .course-icon { display: grid; width: 35px; height: 35px; place-items: center; border-radius: 11px; color: #4869d4; background: #eef2ff; font-size: 15px; }
+    .course-card:nth-child(3n + 2) .course-icon { color: #1c8464; background: #eaf8f1; }
+    .course-card:nth-child(3n) .course-icon { color: #b07c2d; background: #fff5e6; }
+    .badge { padding: 6px 9px; border-radius: 999px; font-size: 9px; font-weight: 800; letter-spacing: .02em; }
+    .badge.required { color: #a05b47; background: #fff0eb; }
+    .badge.elective { color: #68758a; background: #f0f2f6; }
+    .course-card h3 { margin: 15px 0 6px; font-size: 14px; letter-spacing: -.02em; }
+    .instructor { display: flex; align-items: center; gap: 6px; margin: 0; color: #8490a2; font-size: 10px; }
+    .course-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 17px; padding-top: 13px; border-top: 1px solid #edf0f5; }
+    .credits { color: #59677d; font-size: 10px; font-weight: 750; }
+    .select-btn { min-height: 31px; padding: 0 10px; border: 1px solid #dce4fa; border-radius: 8px; color: #4565ca; background: #f3f6ff; font-size: 10px; font-weight: 750; transition: .15s; }
+    .select-btn:hover { border-color: #9db0ed; background: #eaf0ff; }
+    .select-btn.selected { border-color: #cdebdc; color: #167551; background: #effaf5; }
+    .empty { grid-column: 1 / -1; padding: 36px 20px; border: 1px dashed #dfe5ee; border-radius: 13px; color: #8994a5; background: #fbfcfe; font-size: 12px; text-align: center; }
+
+    .selected-panel { position: sticky; top: 18px; padding: 21px; }
+    .selected-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+    .selected-heading p { margin: 5px 0 0; color: var(--muted); font-size: 10px; line-height: 1.5; }
+    .selected-count { display: grid; flex: 0 0 29px; width: 29px; height: 29px; place-items: center; border-radius: 10px; color: #4668d4; background: #eef2ff; font-size: 11px; font-weight: 800; }
+    .selected-list { margin-top: 17px; }
+    .selected-empty { padding: 19px 14px; border: 1px dashed #e1e6ee; border-radius: 12px; color: #8692a5; background: #fbfcfe; text-align: center; }
+    .selected-empty-icon { display: grid; width: 35px; height: 35px; margin: 0 auto 10px; place-items: center; border-radius: 12px; color: #7285b8; background: #eff2fa; font-size: 16px; }
+    .selected-empty strong { display: block; color: #59677d; font-size: 11px; }
+    .selected-empty p { margin: 5px 0 0; font-size: 10px; line-height: 1.5; }
+    .selected-item { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 0; border-bottom: 1px solid #edf0f5; }
+    .selected-item:last-child { border-bottom: 0; }
+    .selected-course-name { font-size: 10px; font-weight: 750; line-height: 1.4; }
+    .selected-course-credits { display: block; margin-top: 4px; color: #8490a2; font-size: 9px; }
+    .remove-btn { padding: 6px 8px; border: 0; border-radius: 7px; color: #a85b54; background: #fff1ef; font-size: 9px; font-weight: 750; }
+    .remove-btn:hover { background: #ffe7e3; }
+    .selected-total { display: flex; align-items: center; justify-content: space-between; margin-top: 17px; padding-top: 15px; border-top: 1px solid #e9edf4; color: #778399; font-size: 10px; }
+    .selected-total strong { color: #223758; font-size: 18px; letter-spacing: -.04em; }
+    .selected-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 16px; }
+    .clear-btn { padding: 8px 10px; border: 1px solid #e6eaf0; border-radius: 8px; color: #778399; background: white; font-size: 9px; font-weight: 750; }
+    .clear-btn:hover:not(:disabled) { border-color: #d6dce7; color: var(--ink); background: #f7f8fb; }
+    .clear-btn:disabled { cursor: not-allowed; opacity: .5; }
+    .selection-note { color: #98a2b1; font-size: 9px; text-align: right; }
+    .footer { margin-top: 21px; color: #98a3b2; font-size: 10px; text-align: center; }
+    :focus-visible { outline: 3px solid #92a9f7; outline-offset: 3px; }
+
+    @media (max-width: 850px) {
+      body { padding: 22px 16px 32px; }
+      .content-grid { grid-template-columns: minmax(0, 1fr) 270px; gap: 14px; }
+      .catalog-panel { padding: 19px; }
+      .hero { padding: 35px; }
+      .summary { margin-right: 16px; margin-left: 16px; }
+      .summary-card { padding: 13px; }
+      .summary-icon { flex-basis: 34px; width: 34px; height: 34px; }
+    }
+    @media (max-width: 700px) {
+      .content-grid { grid-template-columns: 1fr; }
+      .selected-panel { position: static; }
+      .hero { min-height: 0; padding: 31px 27px; }
+      .hero-note { display: none; }
+    }
+    @media (max-width: 520px) {
+      body { padding: 17px 12px 26px; }
+      .topbar { margin-bottom: 16px; }
+      .profile { gap: 8px; padding-right: 8px; }
+      .profile-link { margin-left: 2px; padding-left: 8px; font-size: 10px; }
+      .profile-avatar { width: 31px; height: 31px; }
+      .profile-id { font-size: 9px; }
+      .brand { font-size: 12px; }
+      .brand-mark { width: 32px; height: 32px; }
+      .brand small { font-size: 9px; }
+      .hero { border-radius: 19px; padding: 29px 23px; }
+      .hero h1 { font-size: 34px; }
+      .hero p { font-size: 12px; }
+      .summary { gap: 7px; margin: -15px 9px 19px; }
+      .summary-card { min-height: 74px; display: block; padding: 11px 9px; text-align: center; }
+      .summary-icon { display: none; }
+      .summary-card strong { font-size: 20px; }
+      .summary-card span { font-size: 9px; line-height: 1.3; }
+      .catalog-panel { padding: 17px 14px; }
+      .panel-heading h2 { font-size: 15px; }
+      .toolbar { grid-template-columns: 1fr; gap: 9px; }
+      .filters { justify-content: space-between; }
+      .filter-btn { flex: 1; }
+      .course-grid { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    const profile = {
+      name: 'Mahendra',
+      id: '202537251',
+      github: 'https://github.com/mahendraacharya045-byte/web-programming/tree/main/week11-2'
+    };
+
+    const courses = [
+      { id: 1, title: 'Web Programming', instructor: 'Dr. Toshpulatov', credits: 3, required: true },
+      { id: 2, title: 'Database Systems', instructor: 'Dr. Kim', credits: 3, required: true },
+      { id: 3, title: 'Mobile App Dev', instructor: 'Dr. Lee', credits: 2, required: false }
+    ];
+
+    function SummaryCard({ icon, value, label }) {
+      return (
+        <div className="summary-card">
+          <span className="summary-icon" aria-hidden="true">{icon}</span>
+          <div><strong>{value}</strong><span>{label}</span></div>
+        </div>
+      );
+    }
+
+    function CourseCard({ course, isSelected, onSelect }) {
+      return (
+        <article className={`course-card ${isSelected ? 'is-selected' : ''}`}>
+          <div className="course-top">
+            <span className="course-icon" aria-hidden="true">▤</span>
+            <span className={`badge ${course.required ? 'required' : 'elective'}`}>
+              {course.required ? 'Required' : 'Elective'}
+            </span>
+          </div>
+          <h3>{course.title}</h3>
+          <p className="instructor"><span aria-hidden="true">◉</span> {course.instructor}</p>
+          <div className="course-footer">
+            <span className="credits">{course.credits} credits</span>
+            <button
+              className={`select-btn ${isSelected ? 'selected' : ''}`}
+              type="button"
+              onClick={onSelect}
+              aria-pressed={isSelected}
+            >
+              {isSelected ? '✓ Added' : '+ Add course'}
+            </button>
+          </div>
+        </article>
+      );
+    }
+
+    function CourseCatalog() {
+      const [search, setSearch] = useState('');
+      const [filter, setFilter] = useState('All');
+      const [selected, setSelected] = useState([]);
+
+      function toggleCourse(id) {
+        setSelected(previous => previous.includes(id)
+          ? previous.filter(courseId => courseId !== id)
+          : [...previous, id]
+        );
+      }
+
+      const normalizedSearch = search.trim().toLowerCase();
+      const filteredCourses = courses.filter(course => {
+        const matchesSearch = !normalizedSearch ||
+          course.title.toLowerCase().includes(normalizedSearch) ||
+          course.instructor.toLowerCase().includes(normalizedSearch);
+        const matchesFilter = filter === 'All' ||
+          (filter === 'Required' && course.required) ||
+          (filter === 'Elective' && !course.required);
+        return matchesSearch && matchesFilter;
+      });
+      const selectedCourses = courses.filter(course => selected.includes(course.id));
+      const totalCredits = selectedCourses.reduce((total, course) => total + course.credits, 0);
+      const requiredCount = courses.filter(course => course.required).length;
+
+      return (
+        <div className="container">
+          <header className="topbar">
+            <div className="brand">
+              <span className="brand-mark" aria-hidden="true">✦</span>
+              <span>Campus desk<small>COURSE PLANNER</small></span>
+            </div>
+            <div className="profile" aria-label={`Profile: ${profile.name}, ID ${profile.id}`}>
+              <span className="profile-avatar" aria-hidden="true">M</span>
+              <div><div className="profile-name">{profile.name}</div><div className="profile-id">ID {profile.id}</div></div>
+              <a className="profile-link" href={profile.github} target="_blank" rel="noreferrer">GitHub ↗</a>
+            </div>
+          </header>
+
+          <main>
+            <section className="hero" aria-labelledby="page-title">
+              <div className="hero-copy">
+                <div className="eyebrow"><span className="eyebrow-dot" /> Semester planning</div>
+                <h1 id="page-title">Course catalog</h1>
+                <p>Explore the available courses, find the right fit, and build a schedule that works for you.</p>
+              </div>
+              <div className="hero-note" aria-label={`${courses.length} courses available`}>
+                <span className="hero-note-icon" aria-hidden="true">▤</span>
+                <div><strong>{courses.length} courses</strong><span>Ready to explore</span></div>
+              </div>
+            </section>
+
+            <section className="summary" aria-label="Course selection summary">
+              <SummaryCard icon="▤" value={courses.length} label="Available courses" />
+              <SummaryCard icon="✦" value={requiredCount} label="Required courses" />
+              <SummaryCard icon="✓" value={totalCredits} label="Selected credits" />
+            </section>
+
+            <div className="content-grid">
+              <section className="catalog-panel" aria-labelledby="catalog-heading">
+                <div className="panel-heading">
+                  <div><h2 id="catalog-heading">Explore courses</h2><p>Search the catalog or filter by course type.</p></div>
+                  <span className="result-count" aria-live="polite">{filteredCourses.length} {filteredCourses.length === 1 ? 'course' : 'courses'}</span>
+                </div>
+
+                <div className="toolbar">
+                  <label className="search-wrap">
+                    <span className="search-icon" aria-hidden="true">⌕</span>
+                    <input
+                      className="search-input"
+                      type="search"
+                      placeholder="Search courses or instructors"
+                      value={search}
+                      onChange={event => setSearch(event.target.value)}
+                      aria-label="Search courses or instructors"
+                    />
+                  </label>
+                  <div className="filters" aria-label="Filter courses">
+                    {['All', 'Required', 'Elective'].map(item => (
+                      <button
+                        key={item}
+                        type="button"
+                        className={`filter-btn ${filter === item ? 'active' : ''}`}
+                        aria-pressed={filter === item}
+                        onClick={() => setFilter(item)}
+                      >{item}</button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="course-grid" aria-live="polite">
+                  {filteredCourses.length === 0 ? (
+                    <div className="empty">No courses match your search. Try another term or filter.</div>
+                  ) : filteredCourses.map(course => (
+                    <CourseCard
+                      key={course.id}
+                      course={course}
+                      isSelected={selected.includes(course.id)}
+                      onSelect={() => toggleCourse(course.id)}
+                    />
+                  ))}
+                </div>
+              </section>
+
+              <aside className="selected-panel" aria-labelledby="selected-heading">
+                <div className="selected-heading">
+                  <div><h2 id="selected-heading">My schedule</h2><p>Courses you’ve added this session.</p></div>
+                  <span className="selected-count" aria-label={`${selectedCourses.length} selected`}>{selectedCourses.length}</span>
+                </div>
+
+                <div className="selected-list" aria-live="polite">
+                  {selectedCourses.length === 0 ? (
+                    <div className="selected-empty">
+                      <span className="selected-empty-icon" aria-hidden="true">＋</span>
+                      <strong>Your schedule is empty</strong>
+                      <p>Add a course from the catalog to get started.</p>
+                    </div>
+                  ) : selectedCourses.map(course => (
+                    <div className="selected-item" key={course.id}>
+                      <div><span className="selected-course-name">{course.title}</span><span className="selected-course-credits">{course.credits} credits</span></div>
+                      <button className="remove-btn" type="button" onClick={() => toggleCourse(course.id)} aria-label={`Remove ${course.title}`}>Remove</button>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="selected-total"><span>Total credits</span><strong>{totalCredits}</strong></div>
+                <div className="selected-actions">
+                  <button className="clear-btn" type="button" onClick={() => setSelected([])} disabled={selectedCourses.length === 0}>Clear schedule</button>
+                  <span className="selection-note">Updates as you add courses</span>
+                </div>
+              </aside>
+            </div>
+          </main>
+          <footer className="footer">Course planner · {profile.name} · {profile.id}</footer>
+        </div>
+      );
+    }
+
+    function App() {
+      return <CourseCatalog />;
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
