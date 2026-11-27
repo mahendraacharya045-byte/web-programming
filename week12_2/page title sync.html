@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebPro</title>
+
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    * { box-sizing: border-box; }
+    body { min-height: 100vh; margin: 0; padding: 36px 18px; display: grid; place-items: center; background: radial-gradient(ellipse at 80% 0%, #e4e9ff, transparent 32rem), #f4f5fb; color: #232c4a; font-family: 'DM Sans', Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; }
+    #root { width: 100%; }
+    .container { width: min(100% - 12px, 650px); margin: auto; padding: clamp(24px, 6vw, 42px); border: 1px solid #e0e4f0; border-radius: 26px; background: rgba(255,255,255,.9); box-shadow: 0 24px 70px rgba(40,46,91,.11); }
+    .eyebrow { color: #6459b7; font-size: 11px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+    h1 { margin: 8px 0 24px; color: #282c57; font-size: clamp(30px, 6vw, 43px); letter-spacing: -.06em; line-height: 1.1; }
+    h2 { margin: 0 0 9px; color: #30355f; font-size: 22px; letter-spacing: -.035em; }
+    .container > p, .container > div > p { color: #747b97; line-height: 1.55; }
+    input { width: 100%; padding: 14px 15px; margin: 13px 0 10px; border: 1px solid #dce0ee; border-radius: 11px; background: #fbfbff; color: #252c4a; font: inherit; font-size: 15px; outline: 0; }
+    input:focus { border-color: #7970d0; box-shadow: 0 0 0 4px rgba(121,112,208,.12); }
+    button { padding: 11px 16px; margin: 4px 6px 4px 0; border: 0; border-radius: 10px; background: #6258bb; color: #fff; font: inherit; font-size: 13px; font-weight: 750; cursor: pointer; transition: transform .18s ease, background .18s ease; }
+    button:hover { transform: translateY(-1px); background: #4d469d; }
+    .preview { margin-top: 22px; padding: 19px; border: 1px solid #e2e4f1; border-radius: 15px; background: linear-gradient(145deg, #f7f6ff, #f1f2fb); }
+    .preview h3 { margin: 0 0 8px; color: #6b64b5; font-size: 11px; letter-spacing: .13em; text-transform: uppercase; }
+    .preview p { margin: 0; color: #252c4a; font-size: 19px; font-weight: 700; overflow-wrap: anywhere; }
+    .warning { padding: 10px 12px; border-radius: 9px; background: #fff4e5; color: #a35b1e !important; font-size: 13px; }
+    .editor-meta { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 4px; color: #858aa2; font-size: 12px; }
+    .credit { display: flex; justify-content: center; flex-wrap: wrap; gap: 7px 12px; padding: 17px 5px 0; color: #858aa2; font-size: 11px; }
+    .credit a { color: #5d55aa; font-weight: 750; text-decoration: none; }
+    .credit a:hover { text-decoration: underline; }
+    @media (max-width: 480px) { body { padding: 22px 12px; } .container { border-radius: 21px; } }
+  </style>
+</head>
+
+<body>
+
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    function TitleEditor({ initialText = '' }) {
+      const [text, setText] = useState(initialText);
+      const [showPreview, setShowPreview] = useState(true);
+
+      useEffect(() => {
+        document.title = text.trim() || 'WebPro';
+
+        return () => {
+          document.title = 'WebPro';
+        };
+      }, [text]);
+
+      function handleChange(e) {
+        setText(e.target.value);
+      }
+
+      function handleClear() {
+        setText('');
+      }
+
+      function handlePreview() {
+        setShowPreview(!showPreview);
+      }
+
+      return (
+        <div>
+          <div className="eyebrow">React · Document title</div>
+          <h2>Browser Title Editor</h2>
+
+          <p>Type something to change your browser tab title.</p>
+
+          <input
+            type="text"
+            value={text}
+            onChange={handleChange}
+            placeholder="Enter a new page title..."
+          />
+
+          <button onClick={handleClear}>
+            Clear Text
+          </button>
+
+          <button onClick={handlePreview}>
+            {showPreview ? 'Hide Preview' : 'Show Preview'}
+          </button>
+
+          <div className="editor-meta"><span>Characters typed</span><strong>{text.length}</strong></div>
+
+          {showPreview && (
+            <div className="preview">
+              <h3>Title Preview</h3>
+              <p>{text || 'WebPro'}</p>
+            </div>
+          )}
+
+          {text.length > 30 && (
+            <p className="warning">
+              Your title is getting long!
+            </p>
+          )}
+        </div>
+      );
+    }
+
+    function App() {
+      const [showEditor, setShowEditor] = useState(true);
+
+      return (
+        <div className="container">
+          <h1>Web Programming</h1>
+
+          <button onClick={() => setShowEditor(!showEditor)}>
+            {showEditor ? 'Unmount Component' : 'Mount Component'}
+          </button>
+
+          {showEditor && (
+            <TitleEditor initialText="My React Page" />
+          )}
+          <footer className="credit">
+            <span>Mahendra Acharya · 202537251</span>
+            <a href="https://github.com/mahendraacharya045-byte/web-programming/tree/main/week11-2" target="_blank" rel="noreferrer">GitHub ↗</a>
+          </footer>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(
+      document.getElementById('root')
+    );
+
+    root.render(<App />);
+  </script>
+
+</body>
+</html>
