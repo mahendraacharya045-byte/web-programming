@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Toggle Details</title>
+
+  <script src="vendor/react.production.min.js"></script>
+  <script src="vendor/react-dom.production.min.js"></script>
+  <script src="vendor/babel.min.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #eef2ff;
+      color: #1e293b;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 520px;
+      background: white;
+      padding: 30px;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      margin: 0;
+      color: #1e3a8a;
+    }
+
+    .badge {
+      background: #fee2e2;
+      color: #b91c1c;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .badge.open {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .description {
+      color: #64748b;
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
+
+    button {
+      border: none;
+      padding: 11px 18px;
+      border-radius: 9px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .main-btn {
+      background: #2563eb;
+      color: white;
+      width: 100%;
+    }
+
+    button:hover {
+      opacity: 0.85;
+      transform: translateY(-1px);
+    }
+
+    .details {
+      margin-top: 20px;
+      padding: 20px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      animation: appear 0.3s ease;
+    }
+
+    .details h3 {
+      margin-top: 0;
+      color: #1e40af;
+    }
+
+    .detail-item {
+      padding: 10px 0;
+      border-bottom: 1px solid #e2e8f0;
+      line-height: 1.5;
+    }
+
+    .detail-item:last-child {
+      border-bottom: none;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    .reset-btn {
+      background: #e2e8f0;
+      color: #334155;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(-8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    :root { --navy:#20385e; --blue:#4d70e3; }
+    body { min-height:100vh; display:block; background:#f3f6fb; color:#192842; font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif; }
+    .site-header { display:flex; align-items:center; justify-content:space-between; gap:18px; min-height:64px; padding:10px max(18px,calc((100vw - 1060px)/2)); border-bottom:1px solid #e6ebf2; background:rgba(255,255,255,.95); }
+    .brand { display:flex; align-items:center; gap:9px; color:#20385c; font-size:10px; font-weight:850; letter-spacing:.09em; }
+    .brand-mark,.profile-avatar { display:grid; place-items:center; width:32px; height:32px; border-radius:10px; color:#fff; background:linear-gradient(145deg,#7e9bfa,#4d70e3); font-weight:800; }
+    .profile-chip { display:flex; align-items:center; gap:9px; }
+    .profile-avatar { background:#233d64; }
+    .profile-copy { font-size:10px; font-weight:750; }
+    .profile-copy small { display:block; margin-top:2px; color:#8290a3; font-size:8px; font-weight:500; }
+    .profile-link { margin-left:5px; color:#4d70e3; font-size:9px; font-weight:750; text-decoration:none; }
+    .toggle-workspace { display:grid; grid-template-columns:minmax(250px,.85fr) minmax(0,1.15fr); gap:15px; width:min(100% - 36px,960px); min-height:420px; margin:55px auto; }
+    .toggle-copy,.details { padding:28px; border:1px solid #e5ebf3; border-radius:18px; background:#fff; box-shadow:0 10px 28px rgba(31,52,83,.07); }
+    .toggle-copy { display:flex; flex-direction:column; }
+    .top { margin-bottom:17px; }
+    .top .eyebrow { display:block; margin-bottom:7px; color:#8292bf; font-size:9px; font-weight:800; letter-spacing:.14em; }
+    h2 { color:#203654; font-size:22px; letter-spacing:-.035em; }
+    .badge { color:#a84b47; background:#fff0ed; font-size:9px; }
+    .badge.open { color:#167551; background:#eaf8f1; }
+    .description { margin:0 0 20px; color:#77849a; font-size:12px; line-height:1.65; }
+    .main-btn { width:100%; margin-top:auto; padding:12px 15px; border-radius:9px; color:#fff; background:#4d70e3; font-size:10px; font-weight:800; }
+    .main-btn:hover { background:#3456c3; }
+    .footer { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:17px; padding-top:14px; border-top:1px solid #edf0f5; color:#7d899d; font-size:10px; }
+    .footer strong { margin-left:5px; color:#344d77; }
+    .reset-btn { padding:8px 11px; color:#718097; background:#f0f3f8; font-size:9px; }
+    .details { display:flex; flex-direction:column; justify-content:center; margin:0; padding:31px; background:linear-gradient(145deg,#f7f9ff,#edf2ff); animation:appear .25s ease; }
+    .details.is-closed { align-items:center; border-style:dashed; background:#fafbfd; }
+    .details-label { color:#7587bf; font-size:9px; font-weight:800; letter-spacing:.14em; }
+    .details h3 { margin:7px 0 15px; color:#243c65; font-size:20px; letter-spacing:-.03em; }
+    .detail-item { padding:12px 0; border-bottom:1px solid #dfe6f5; color:#314761; font-size:11px; line-height:1.5; }
+    .detail-item:last-child { border:0; }
+    .detail-item strong { color:#3456a1; }
+    .detail-item p { margin:4px 0 0; color:#73829a; }
+    .hidden-state { max-width:245px; text-align:center; }
+    .hidden-icon { display:grid; width:54px; height:54px; place-items:center; margin:0 auto 13px; border-radius:17px; color:#5577df; background:#edf2ff; font-size:21px; }
+    .hidden-state h3 { margin:0 0 6px; font-size:15px; }
+    .hidden-state p { margin:0; color:#7e8ba0; font-size:10px; line-height:1.6; }
+    @media(max-width:620px) { .toggle-workspace { grid-template-columns:1fr; width:calc(100% - 24px); margin:22px auto; } .toggle-copy,.details { padding:21px; border-radius:15px; } .details { min-height:230px; } }
+    @media(max-width:420px) { .site-header { padding:9px 11px; } .profile-chip { gap:6px; } .profile-avatar,.brand-mark { width:28px; height:28px; } .profile-link { margin-left:0; font-size:8px; } }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    function ToggleDetail() {
+      const [isVisible, setIsVisible] = useState(false);
+      const [clicks, setClicks] = useState(0);
+
+      function toggleDetails() {
+        setIsVisible(prev => !prev);
+        setClicks(prev => prev + 1);
+      }
+
+      function resetDetails() {
+        setIsVisible(false);
+        setClicks(0);
+      }
+
+      return (
+        <main className="toggle-workspace">
+          <section className="toggle-copy">
+            <div className="top">
+              <div><span className="eyebrow">STATE EXPLORER</span><h2>React learning card</h2></div>
+              <span className={`badge ${isVisible ? "open" : ""}`}>{isVisible ? "OPEN" : "CLOSED"}</span>
+            </div>
+            <p className="description">Discover how React state makes websites interactive. Toggle the learning notes to see conditional rendering in action.</p>
+            <button className="main-btn" type="button" onClick={toggleDetails} aria-expanded={isVisible} aria-controls="react-details">
+              {isVisible ? "Hide learning notes ↑" : "Show learning notes ↓"}
+            </button>
+            <div className="footer"><span>Button clicks <strong>{clicks}</strong></span><button className="reset-btn" type="button" onClick={resetDetails}>Reset</button></div>
+          </section>
+
+          <section className={`details ${isVisible ? "is-open" : "is-closed"}`} id="react-details" aria-live="polite">
+            {isVisible ? (
+              <>
+                <span className="details-label">THE BASICS</span>
+                <h3>About React state</h3>
+                <div className="detail-item"><strong>01 · useState</strong><p>Stores and manages component data.</p></div>
+                <div className="detail-item"><strong>02 · Conditional rendering</strong><p>Displays content based on a condition.</p></div>
+                <div className="detail-item"><strong>03 · Dynamic updates</strong><p>Updates the user interface without reloading the page.</p></div>
+              </>
+            ) : (
+              <div className="hidden-state"><span className="hidden-icon" aria-hidden="true">✦</span><h3>Learning notes are hidden</h3><p>Open the card to reveal three ideas about React state.</p></div>
+            )}
+          </section>
+        </main>
+      );
+    }
+
+    function App() {
+      return (
+        <>
+          <header className="site-header">
+            <div className="brand"><span className="brand-mark">✦</span> WEEK 12 · REACT STATE</div>
+            <div className="profile-chip"><span className="profile-avatar">M</span><div className="profile-copy">Mahendra<small>ID 202537251</small></div><a className="profile-link" href="https://github.com/mahendraacharya045-byte/web-programming/tree/main/week11-2" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+          </header>
+          <ToggleDetail />
+        </>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>

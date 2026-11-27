@@ -1,0 +1,445 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Task Manager</title>
+
+  <script src="vendor/react.production.min.js"></script>
+  <script src="vendor/react-dom.production.min.js"></script>
+  <script src="vendor/babel.min.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 30px 15px;
+      font-family: Arial, sans-serif;
+      background: #eef2ff;
+      color: #1e293b;
+    }
+
+    .app {
+      max-width: 650px;
+      margin: 30px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      color: #1e3a8a;
+    }
+
+    .subtitle {
+      color: #64748b;
+      margin-bottom: 25px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .stat {
+      background: #f1f5f9;
+      padding: 15px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 24px;
+      color: #2563eb;
+      margin-bottom: 5px;
+    }
+
+    .stat span {
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .input-area {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    input, select {
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    input:focus, select:focus {
+      border-color: #2563eb;
+    }
+
+    .input-area input {
+      flex: 1;
+      min-width: 0;
+    }
+
+    button {
+      border: none;
+      border-radius: 9px;
+      padding: 11px 16px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      opacity: 0.85;
+      transform: translateY(-1px);
+    }
+
+    .add-btn {
+      background: #2563eb;
+      color: white;
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: #e2e8f0;
+      color: #475569;
+    }
+
+    .filter-btn.active {
+      background: #2563eb;
+      color: white;
+    }
+
+    .task {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      background: #fff;
+    }
+
+    .task input {
+      width: 17px;
+      height: 17px;
+      cursor: pointer;
+    }
+
+    .task-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .task-name {
+      font-weight: bold;
+      overflow-wrap: anywhere;
+    }
+
+    .completed {
+      text-decoration: line-through;
+      color: #94a3b8;
+    }
+
+    .priority {
+      display: inline-block;
+      margin-top: 5px;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 20px;
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .high {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .low {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .delete-btn {
+      background: #fee2e2;
+      color: #dc2626;
+      padding: 8px 11px;
+    }
+
+    .progress-area {
+      margin-top: 25px;
+    }
+
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 8px;
+      color: #64748b;
+    }
+
+    .progress-bar {
+      height: 9px;
+      background: #e2e8f0;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #2563eb;
+      transition: width 0.3s;
+    }
+
+    .empty {
+      text-align: center;
+      color: #94a3b8;
+      padding: 30px 10px;
+    }
+
+    .bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      gap: 10px;
+    }
+
+    .clear-btn {
+      background: #f1f5f9;
+      color: #475569;
+    }
+
+    @media (max-width: 450px) {
+      .app {
+        padding: 20px;
+      }
+
+      .stats {
+        gap: 6px;
+      }
+
+      .input-area {
+        flex-wrap: wrap;
+      }
+
+      .input-area input {
+        width: 100%;
+        flex-basis: 100%;
+      }
+    }
+
+    :root { --navy:#1d3558; --blue:#4d70e3; --text:#192842; --muted:#78849a; }
+    body { min-height:100vh; padding:0; color:var(--text); background:#f3f6fb; font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif; }
+    .site-header { display:flex; align-items:center; justify-content:space-between; gap:18px; min-height:64px; padding:10px max(18px,calc((100vw - 1160px)/2)); border-bottom:1px solid #e6ebf2; background:rgba(255,255,255,.95); }
+    .brand { display:flex; align-items:center; gap:9px; color:#20385c; font-size:11px; font-weight:850; letter-spacing:.09em; }
+    .brand-mark,.profile-avatar { display:grid; place-items:center; width:32px; height:32px; border-radius:10px; color:white; background:linear-gradient(145deg,#7e9bfa,#4d70e3); font-weight:800; }
+    .profile-chip { display:flex; align-items:center; gap:9px; }
+    .profile-avatar { background:#233d64; }
+    .profile-copy { font-size:10px; font-weight:750; }
+    .profile-copy small { display:block; margin-top:2px; color:#8290a3; font-size:8px; font-weight:500; }
+    .profile-link { margin-left:5px; color:#4d70e3; font-size:9px; font-weight:750; text-decoration:none; }
+    .profile-link:hover { text-decoration:underline; text-underline-offset:3px; }
+    .task-manager { display:grid; grid-template-columns:315px minmax(0,1fr); gap:18px; width:min(100% - 36px,1160px); margin:25px auto 38px; align-items:start; }
+    .task-sidebar { position:sticky; top:18px; padding:23px; border-radius:19px; color:white; background:linear-gradient(155deg,#203b63,#172a47 72%,#20415d); box-shadow:0 14px 30px rgba(28,50,82,.15); }
+    .eyebrow { color:#aebfe1; font-size:9px; font-weight:800; letter-spacing:.15em; }
+    .task-sidebar h1 { margin:8px 0 5px; color:white; font-size:29px; letter-spacing:-.045em; text-align:left; }
+    .subtitle { margin:0 0 19px; color:#bfccdf; font-size:11px; line-height:1.55; }
+    .stats { gap:6px; margin-bottom:15px; }
+    .stat { padding:10px 6px; border:1px solid rgba(255,255,255,.12); border-radius:10px; background:rgba(255,255,255,.075); }
+    .stat strong { margin-bottom:2px; color:#c5d4ff; font-size:19px; }
+    .stat span { color:#bdc9dc; font-size:8px; }
+    .add-panel { padding:13px; border:1px solid rgba(255,255,255,.13); border-radius:12px; background:rgba(255,255,255,.075); }
+    .add-panel label { display:block; margin-bottom:5px; color:#eef3fc; font-size:10px; font-weight:750; }
+    .add-panel input,.add-panel select { width:100%; min-height:37px; margin:4px 0 7px; padding:8px 10px; border:1px solid #dfe5ee; border-radius:8px; outline:none; color:#223754; background:#fff; font-size:10px; }
+    .add-panel input:focus,.add-panel select:focus { border-color:#91a8f3; box-shadow:0 0 0 3px rgba(110,143,241,.16); }
+    button { font:inherit; cursor:pointer; transition:transform .15s,background .15s; }
+    button:hover:not(:disabled) { transform:translateY(-1px); }
+    button:disabled { cursor:not-allowed; opacity:.5; }
+    .add-btn { width:100%; padding:9px 12px; border-radius:8px; color:#fff; background:#5477e6; font-size:10px; font-weight:800; }
+    .add-btn:hover { background:#4162cc; }
+    .filters { gap:5px; margin:13px 0 0; padding:4px; border:1px solid rgba(255,255,255,.13); border-radius:10px; background:rgba(0,0,0,.1); }
+    .filter-btn { flex:1; padding:8px 5px; border-radius:7px; color:#c7d2e4; background:transparent; font-size:9px; }
+    .filter-btn:hover { background:rgba(255,255,255,.08); }
+    .filter-btn.active { color:#293e63; background:#fff; box-shadow:0 2px 6px rgba(0,0,0,.12); }
+    .task-main { min-height:490px; padding:23px; border:1px solid #e5ebf3; border-radius:18px; background:#fff; box-shadow:0 8px 24px rgba(31,52,83,.06); }
+    .task-main-heading { display:flex; align-items:flex-end; justify-content:space-between; gap:10px; margin-bottom:13px; padding-bottom:15px; border-bottom:1px solid #edf0f5; }
+    .task-main-heading .eyebrow { color:#8292bf; }
+    .task-main-heading h2 { margin:4px 0 0; color:#233a5d; font-size:19px; letter-spacing:-.03em; }
+    .list-count { color:#8591a4; font-size:9px; }
+    .task { gap:11px; margin-bottom:8px; padding:12px; border-color:#e7ecf3; border-radius:11px; background:#fff; }
+    .task input { flex:0 0 auto; width:16px; height:16px; margin:0; accent-color:#4d70e3; }
+    .task-info { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+    .task-name { color:#2a3d5c; font-size:10px; }
+    .completed { color:#929dad; }
+    .priority { flex:0 0 auto; margin:0; padding:4px 7px; color:#66769a; background:#eff3ff; font-size:8px; }
+    .priority.high { color:#b24f4f; background:#fff0ed; }
+    .priority.low { color:#26805f; background:#edf9f2; }
+    .delete-btn { flex:0 0 auto; padding:7px 9px; border-radius:7px; color:#b14d4a; background:#fff0ed; font-size:10px; }
+    .delete-btn:hover { background:#ffe3df; }
+    .empty { padding:35px 12px; border:1px dashed #dfe5ee; border-radius:11px; color:#8995a7; background:#fafbfd; font-size:11px; }
+    .progress-area { margin-top:18px; padding:14px; border:1px solid #e8edf4; border-radius:11px; background:#fafbfd; }
+    .progress-text { margin-bottom:8px; color:#78849a; font-size:10px; }
+    .progress-text strong { color:#4d70e3; }
+    .progress-bar { height:7px; background:#e9edf5; }
+    .progress-fill { border-radius:20px; background:linear-gradient(90deg,#6b8bf1,#83d9b5); }
+    .bottom { margin-top:12px; color:#78849a; font-size:10px; }
+    .clear-btn { padding:8px 10px; border:1px solid #e3e8ef; border-radius:8px; color:#738096; background:#f8f9fc; font-size:9px; }
+    @media(max-width:760px) { .task-manager { grid-template-columns:1fr; } .task-sidebar { position:static; } .stats { grid-template-columns:repeat(3,1fr); } }
+    @media(max-width:480px) { .site-header { padding:9px 12px; } .task-manager { width:calc(100% - 22px); margin-top:13px; } .task-sidebar,.task-main { padding:16px; border-radius:15px; } .task-info { align-items:flex-start; flex-direction:column; } .stats { gap:5px; } }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    function TaskList() {
+      const [tasks, setTasks] = useState([]);
+      const [input, setInput] = useState("");
+      const [priority, setPriority] = useState("Normal");
+      const [filter, setFilter] = useState("All");
+
+      function addTask() {
+        if (!input.trim()) return;
+
+        const newTask = {
+          id: Date.now(),
+          text: input.trim(),
+          priority: priority,
+          completed: false
+        };
+
+        setTasks(prev => [...prev, newTask]);
+        setInput("");
+        setPriority("Normal");
+      }
+
+      function removeTask(id) {
+        setTasks(prev => prev.filter(task => task.id !== id));
+      }
+
+      function toggleTask(id) {
+        setTasks(prev =>
+          prev.map(task =>
+            task.id === id
+              ? { ...task, completed: !task.completed }
+              : task
+          )
+        );
+      }
+
+      const completedCount = tasks.filter(task => task.completed).length;
+      const remainingCount = tasks.length - completedCount;
+
+      const filteredTasks = tasks.filter(task => {
+        if (filter === "Active") return !task.completed;
+        if (filter === "Completed") return task.completed;
+        return true;
+      });
+
+      const progress = tasks.length === 0
+        ? 0
+        : Math.round((completedCount / tasks.length) * 100);
+
+      return (
+        <div className="task-manager">
+          <aside className="task-sidebar">
+            <div className="eyebrow">PERSONAL PLANNER</div>
+            <h1>My tasks</h1>
+            <p className="subtitle">Plan your work, set priorities, and keep moving forward.</p>
+
+            <div className="stats">
+              <div className="stat"><strong>{tasks.length}</strong><span>Total tasks</span></div>
+              <div className="stat"><strong>{remainingCount}</strong><span>Remaining</span></div>
+              <div className="stat"><strong>{completedCount}</strong><span>Completed</span></div>
+            </div>
+
+            <div className="add-panel">
+              <label htmlFor="task-input">Add a task</label>
+              <input
+                id="task-input"
+                value={input}
+                onChange={e => setInput(e.target.value)}
+                onKeyDown={e => e.key === "Enter" && addTask()}
+                placeholder="What needs to get done?"
+              />
+              <select aria-label="Task priority" value={priority} onChange={e => setPriority(e.target.value)}>
+                <option value="Low">Low priority</option>
+                <option value="Normal">Normal priority</option>
+                <option value="High">High priority</option>
+              </select>
+              <button className="add-btn" onClick={addTask}>+ Add task</button>
+            </div>
+
+            <div className="filters" aria-label="Filter tasks">
+              {["All", "Active", "Completed"].map(item => (
+                <button key={item} type="button" className={`filter-btn ${filter === item ? "active" : ""}`} aria-pressed={filter === item} onClick={() => setFilter(item)}>{item}</button>
+              ))}
+            </div>
+          </aside>
+
+          <section className="task-main" aria-label="Task list">
+            <div className="task-main-heading"><div><span className="eyebrow">YOUR WORKSPACE</span><h2>Today's list</h2></div><span className="list-count">{filteredTasks.length} {filteredTasks.length === 1 ? "task" : "tasks"}</span></div>
+            {filteredTasks.length === 0 ? (
+              <div className="empty">{tasks.length === 0 ? "No tasks yet. Add your first task!" : "No tasks in this category."}</div>
+            ) : (
+              filteredTasks.map(task => (
+                <div className="task" key={task.id}>
+                  <input type="checkbox" aria-label={`Mark ${task.text} ${task.completed ? "active" : "complete"}`} checked={task.completed} onChange={() => toggleTask(task.id)} />
+                  <div className="task-info">
+                    <div className={`task-name ${task.completed ? "completed" : ""}`}>{task.text}</div>
+                    <span className={`priority ${task.priority === "High" ? "high" : task.priority === "Low" ? "low" : ""}`}>{task.priority} priority</span>
+                  </div>
+                  <button className="delete-btn" aria-label={`Delete ${task.text}`} onClick={() => removeTask(task.id)}>✕</button>
+                </div>
+              ))
+            )}
+
+            <div className="progress-area">
+              <div className="progress-text"><span>Task progress</span><strong>{progress}%</strong></div>
+              <div className="progress-bar"><div className="progress-fill" style={{ width:`${progress}%` }} /></div>
+            </div>
+            <div className="bottom"><span>{remainingCount} task(s) left</span><button className="clear-btn" onClick={() => setTasks([])} disabled={tasks.length === 0}>Clear all</button></div>
+          </section>
+        </div>
+      );
+    }
+
+    function App() {
+      return (
+        <>
+          <header className="site-header">
+            <div className="brand"><span className="brand-mark">✓</span> DAYFLOW TASKS</div>
+            <div className="profile-chip"><span className="profile-avatar">M</span><div className="profile-copy">Mahendra<small>ID 202537251</small></div><a className="profile-link" href="https://github.com/mahendraacharya045-byte/web-programming/tree/main/week11-2" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+          </header>
+          <TaskList />
+        </>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
